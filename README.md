@@ -1,6 +1,4 @@
 # Sentinel - Remote Monitoring and Management (RMM) Software
-
-## Overview
 Sentinel is a powerful, scalable, and secure Remote Monitoring and Management (RMM) platform designed to help IT professionals and Managed Service Providers (MSPs) efficiently manage, monitor, and secure client devices and networks from a single dashboard.
 
 With Sentinel, you'll gain full visibility and control over endpoints, proactive alerts, and automation tools that simplify maintenance tasks and increase operational efficiency.
