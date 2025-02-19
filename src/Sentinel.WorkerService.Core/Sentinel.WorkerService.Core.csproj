@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Sentinel.WorkerService.Core</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions"/>
+<!--    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions"/>-->
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sentinel.Common\Sentinel.Common.csproj" />
+    <ProjectReference Include="..\Sentinel.WorkerService.Common\Sentinel.WorkerService.Common.csproj" />
+  </ItemGroup>
+
+</Project>

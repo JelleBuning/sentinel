@@ -1,0 +1,62 @@
+using Microsoft.EntityFrameworkCore;
+using Sentinel.Api;
+using Sentinel.Api.Application;
+using Sentinel.Api.Extensions;
+using Sentinel.Api.Infrastructure;
+using Sentinel.Api.Infrastructure.Persistence;
+using Sentinel.Api.Infrastructure.SignalR;
+using Serilog;
+
+try
+{
+    var builder = WebApplication.CreateBuilder(args);
+    {
+        builder.Services
+            .AddPresentation()
+            .AddApplication()
+            .AddInfrastructure(builder.Configuration);
+    }
+    
+    Log.Information("Starting host");
+    var app = builder.Build();
+    app.UseSwagger();
+    app.UseSwaggerUI();
+    app.UseAuthentication();
+    app.UseAuthorization();
+    app.MapControllers();
+    
+    app.AddHub<DeviceMessageHub>();
+
+    app.UseCors(corsPolicyBuilder =>
+    {
+        corsPolicyBuilder
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+
+    using (var scope = app.Services.CreateScope())
+    {
+        // It skips migration in test, non-relational DB
+        var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+        if (dbContext.Database.IsRelational()) dbContext.Database.Migrate();
+    }
+    await app.RunAsync();
+    var x = 10;
+    return 0;
+}
+catch (Exception ex)
+{
+    Log.Fatal(ex, "Host terminated unexpectedly");
+
+    return 1;
+}
+finally
+{
+    Log.CloseAndFlush();
+}
+
+namespace Sentinel.Api
+{
+    public partial class Program { }
+}

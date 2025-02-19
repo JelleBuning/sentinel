@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-Sentinel.WorkerService-f5d58aa8-4363-49bb-b403-7e4ed6f56b92</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting.Systemd"/>
+    <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices"/>
+    <PackageReference Include="Serilog.Extensions.Hosting"/>
+    <PackageReference Include="System.Management.Automation"/>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sentinel.Common\Sentinel.Common.csproj" />
+    <ProjectReference Include="..\Sentinel.WorkerService.Common\Sentinel.WorkerService.Common.csproj" />
+    <ProjectReference Include="..\Sentinel.WorkerService.Core.Linux\Sentinel.WorkerService.Core.Linux.csproj" />
+    <ProjectReference Include="..\Sentinel.WorkerService.Core.Windows\Sentinel.WorkerService.Core.Windows.csproj" />
+    <ProjectReference Include="..\Sentinel.WorkerService.RemoteAccess\Sentinel.WorkerService.RemoteAccess.csproj" />
+    <ProjectReference Include="..\Sentinel.WorkerService.Core\Sentinel.WorkerService.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="Licences.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+</Project>
