@@ -1,3 +1,3 @@
 ﻿namespace Sentinel.Common.Messages;
 
-public sealed record RestartDeviceMessage();
+public sealed record RestartDeviceMessage;

@@ -20,7 +20,7 @@ public class SecurityInformationRetriever(IFirewallSettingsRetriever firewallSet
             LastAntivirusUpdate = ParseExact(managementBaseObject["AntivirusSignatureLastUpdated"]),
             LastAntispywareUpdate = ParseExact(managementBaseObject["AntiSpywareSignatureLastUpdated"]),
             RealTimeProtectionEnabled = (bool)managementBaseObject["RealTimeProtectionEnabled"],
-            NISEnabled = (bool)managementBaseObject["NISEnabled"],
+            NisEnabled = (bool)managementBaseObject["NISEnabled"],
             TamperProtectionEnabled = (bool)managementBaseObject["IsTamperProtected"],
             AntispywareEnabled = (bool)managementBaseObject["AntiSpywareEnabled"],
             IsVirtualMachine = (bool)managementBaseObject["IsVirtualMachine"],

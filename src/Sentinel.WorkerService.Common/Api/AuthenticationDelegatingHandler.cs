@@ -10,8 +10,6 @@ namespace Sentinel.WorkerService.Common.Api;
 
 public class AuthenticationDelegatingHandler(IConfiguration configuration, ICredentialManager credentialManager) : DelegatingHandler
 {
-    private static readonly string Path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "credentials.json");
-    
     protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
         CancellationToken cancellationToken)
     {

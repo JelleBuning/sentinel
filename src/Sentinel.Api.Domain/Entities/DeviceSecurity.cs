@@ -12,7 +12,7 @@ public class DeviceSecurity
     
     public bool AntivirusEnabled { get; set; }
     public bool RealTimeProtectionEnabled { get;set; }
-    public bool NISEnabled { get; set; }   
+    public bool NisEnabled { get; set; }   
     public bool TamperProtectionEnabled { get; set; }
     public bool AntispywareEnabled { get; set; }
     

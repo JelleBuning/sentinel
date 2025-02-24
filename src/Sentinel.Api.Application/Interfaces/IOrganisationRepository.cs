@@ -2,7 +2,7 @@
 
 namespace Sentinel.Api.Application.Interfaces
 {
-    public interface IOrganisationRepository : IRepository<Organisation>
+    public interface IOrganisationRepository
     {
         public List<Organisation> GetAll();
     }

@@ -42,7 +42,6 @@ try
         if (dbContext.Database.IsRelational()) dbContext.Database.Migrate();
     }
     await app.RunAsync();
-    var x = 10;
     return 0;
 }
 catch (Exception ex)
@@ -58,5 +57,5 @@ finally
 
 namespace Sentinel.Api
 {
-    public partial class Program { }
+    public class Program;
 }

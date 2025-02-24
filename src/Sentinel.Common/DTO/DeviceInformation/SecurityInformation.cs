@@ -7,7 +7,7 @@ public class SecurityInformation
     public DateTime? LastAntivirusUpdate { get; set; }
     public DateTime? LastAntispywareUpdate { get; set; }
     public bool RealTimeProtectionEnabled { get;set; }
-    public bool NISEnabled { get; set; }   
+    public bool NisEnabled { get; set; }   
     public bool TamperProtectionEnabled { get; set; }
     public bool AntispywareEnabled { get; set; }
     public bool IsVirtualMachine { get; set; }

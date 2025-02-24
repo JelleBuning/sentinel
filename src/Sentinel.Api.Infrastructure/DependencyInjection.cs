@@ -30,27 +30,12 @@ public static class DependencyInjection
         services
             .AddCors()
             .AddServices()
-            .AddBackgroundServices(configuration)
-            .AddAuthenticationAndAuthorization(configuration)
             .AddPersistence(configuration)
+            .AddAuthenticationAndAuthorization(configuration)
             .AddHttpContextAccessor()
             .AddAuthorization()
             .AddSignalR();
 
-        return services;
-    }
-
-    private static IServiceCollection AddBackgroundServices(this IServiceCollection services,
-        IConfiguration configuration)
-    {
-        services.AddEmailNotifications(configuration);
-
-        return services;
-    }
-
-    private static IServiceCollection AddEmailNotifications(this IServiceCollection services,
-        IConfiguration configuration)
-    {
         return services;
     }
 

@@ -5,5 +5,5 @@ namespace Sentinel.WorkerService.Common.Consumer;
 
 public class ConsumerConfig<T> : IConsumerConfig<T>
 {
-    public HubConnection Connection { get; set; }
+    public HubConnection? Connection { get; set; }
 }

@@ -17,7 +17,7 @@ public class AuthenticationHandler(SentinelApiService apiService, ICredentialMan
             deviceToken = await apiService.RegisterDeviceAsync(organisationHash, name, cancellationToken);
         }
 
-        await credentialManager.SetDeviceDetailsAsync(deviceToken!);
-        return deviceToken!;
+        await credentialManager.SetDeviceDetailsAsync(deviceToken);
+        return deviceToken;
     }
 }

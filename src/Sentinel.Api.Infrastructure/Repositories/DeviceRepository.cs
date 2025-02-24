@@ -29,7 +29,9 @@ namespace Sentinel.Api.Infrastructure.Repositories
                 Name = registerDeviceDto.Name,
                 CreatedOn = DateTime.Now,
                 LastActive = DateTime.Now,
-                RefreshToken = tokenService.GenerateRefreshToken()
+                RefreshToken = tokenService.GenerateRefreshToken(),
+                DeviceDetails = null,
+                DeviceSecurity = null
             };
             organisation.Devices.Add(device);
             dbContext.SaveChanges();
@@ -74,6 +76,7 @@ namespace Sentinel.Api.Infrastructure.Repositories
         public GetDevicesResponse GetDevices(int userId)
         {
             var user = dbContext.Users.Include(user => user.Organisation).Single(x => x.Id == userId);
+            var x = dbContext.Devices.ToList();
             var devices = dbContext.Devices.Where(x => x.OrganisationId == user.OrganisationId).ToList();
             return new GetDevicesResponse()
             {
@@ -141,13 +144,13 @@ namespace Sentinel.Api.Infrastructure.Repositories
 
             return new StorageInformation()
             {
-                Disks = device.Disks?.Select(disk => new DiskInformation
+                Disks = device.Disks.Select(disk => new DiskInformation
                 {
                     Name = disk.Name,
                     IsOsDisk = disk.IsOsDisk,
                     Used = disk.Used,
                     Size = disk.Size
-                }).ToList() ?? []
+                }).ToList()
             };
         }
 
@@ -200,7 +203,7 @@ namespace Sentinel.Api.Infrastructure.Repositories
                 LastAntivirusUpdate = securityInfo.LastAntivirusUpdate,
                 LastAntispywareUpdate = securityInfo.LastAntispywareUpdate,
                 RealTimeProtectionEnabled = securityInfo.RealTimeProtectionEnabled,
-                NISEnabled = securityInfo.NISEnabled,
+                NisEnabled = securityInfo.NisEnabled,
                 TamperProtectionEnabled = securityInfo.TamperProtectionEnabled,
                 AntispywareEnabled = securityInfo.AntispywareEnabled,
                 IsVirtualMachine = securityInfo.IsVirtualMachine,
@@ -217,14 +220,16 @@ namespace Sentinel.Api.Infrastructure.Repositories
         {
             var device = dbContext.Devices.Include(d => d.DeviceSecurity).FirstOrDefault(s => s.Id == id) ??
                          throw new Exception("Device not found", new NotFoundException());
-
+            
+            if (device.DeviceSecurity == null) return;
+            
             device.DeviceSecurity.LastScan = updateDto.LastSecurityScan.LastScan;
             device.DeviceSecurity.Duration = updateDto.LastSecurityScan.Duration;
             device.DeviceSecurity.AntivirusEnabled = updateDto.AntivirusEnabled;
             device.DeviceSecurity.LastAntivirusUpdate = updateDto.LastAntivirusUpdate;
             device.DeviceSecurity.LastAntispywareUpdate = updateDto.LastAntispywareUpdate;
             device.DeviceSecurity.RealTimeProtectionEnabled = updateDto.RealTimeProtectionEnabled;
-            device.DeviceSecurity.NISEnabled = updateDto.NISEnabled;
+            device.DeviceSecurity.NisEnabled = updateDto.NisEnabled;
             device.DeviceSecurity.TamperProtectionEnabled = updateDto.TamperProtectionEnabled;
             device.DeviceSecurity.AntispywareEnabled = updateDto.AntispywareEnabled;
             device.DeviceSecurity.IsVirtualMachine = updateDto.IsVirtualMachine;

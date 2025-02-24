@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Sentinel.Api.Application.DTO.User;
 using Sentinel.Api.Infrastructure.Persistence;
 
@@ -6,6 +7,14 @@ namespace Sentinel.Api.Integration.Tests.Common;
 
 public static class FactoryExtensions
 {
+    public static AppDbContext GetDbContext(this ApiFixture fixture)
+    {
+        var provider = fixture.Services.CreateScope().ServiceProvider;
+        var dbContext = provider.GetRequiredService<AppDbContext>();
+        dbContext.Database.EnsureCreated();
+        return dbContext;
+    }
+
     public static HttpClient CreateAuthenticatedClient(this ApiFixture fixture, out SignInUserResponse user)
     {
         var client = fixture.CreateClient();

@@ -4,7 +4,7 @@ using Sentinel.Common.DTO.DeviceInformation;
 
 namespace Sentinel.Api.Application.Interfaces
 {
-    public interface IDeviceRepository : IRepository<Domain.Entities.Device>
+    public interface IDeviceRepository
     {
         void Ping(int id);
         DeviceTokenResponse Register(RegisterDeviceDto registerDevice);
