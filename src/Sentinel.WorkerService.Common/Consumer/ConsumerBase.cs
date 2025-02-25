@@ -18,7 +18,7 @@ public abstract class ConsumerBase<TMessage, TResponse> : IHostedService, IModul
         config.Connection.On(messageName, (TMessage message) =>
         {
             logger.LogInformation($"[*] {messageName} received");
-            return OnMessageReceived(message);
+            OnMessageReceived(message);
         });
     }
 
