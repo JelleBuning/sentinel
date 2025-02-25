@@ -14,7 +14,8 @@ public class SecurityInformationRetriever(IFirewallSettingsRetriever firewallSet
         const string defenderScope = @"\\.\root\Microsoft\Windows\Defender";
         const string computerStatusKey = "MSFT_MpComputerStatus";
         using var managementObjectSearcher = new ManagementObjectSearcher(defenderScope, "SELECT * FROM " + computerStatusKey);
-        var securityInformation = managementObjectSearcher.Get().Cast<ManagementBaseObject>().Select(managementBaseObject => new SecurityInformation
+        var managementBaseObject = managementObjectSearcher.Get().Cast<ManagementBaseObject>().Single();
+        var securityInformation = new SecurityInformation
         {
             AntivirusEnabled = (bool)managementBaseObject["AntiVirusEnabled"],
             LastAntivirusUpdate = ParseExact(managementBaseObject["AntivirusSignatureLastUpdated"]),
@@ -26,11 +27,12 @@ public class SecurityInformationRetriever(IFirewallSettingsRetriever firewallSet
             IsVirtualMachine = (bool)managementBaseObject["IsVirtualMachine"],
             LastSecurityScan = new LastSecurityScan
             {
-                LastScan = ParseExact(managementBaseObject["QuickScanStartTime"]),
-                Duration = ParseExact(managementBaseObject["QuickScanEndTime"]) - ParseExact(managementBaseObject["QuickScanStartTime"]) 
+                // TODO: fix, cant find the properties
+                // LastScan = ParseExact(managementBaseObject["QuickScanStartTime"]),
+                // Duration = ParseExact(managementBaseObject["QuickScanEndTime"]) - ParseExact(managementBaseObject["QuickScanStartTime"]) 
             },
             FirewallSettings = firewallSettingsRetriever.Retrieve()
-        }).Single();
+        };
         
         return securityInformation;
     }
