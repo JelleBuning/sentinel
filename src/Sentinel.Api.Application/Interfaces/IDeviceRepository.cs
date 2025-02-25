@@ -10,8 +10,8 @@ namespace Sentinel.Api.Application.Interfaces
         DeviceTokenResponse Register(RegisterDeviceDto registerDevice);
         TokenResponse RefreshToken(RefreshTokenDto refreshTokenDto);
         GetDevicesResponse GetDevices(int userId);
-        DeviceInformation GetDeviceInformation(int id);
-        void UpdateDeviceInformation(int id, DeviceInformation update);
+        GetDeviceInformationDto GetDeviceInformation(int id);
+        void UpdateDeviceInformation(int id, UpdateDeviceInformationDto update);
         StorageInformation GetStorageInfo(int id);
         void UpdateStorageInfo(int id, StorageInformation update);
         SecurityInformation GetSecurityInfo(int id);

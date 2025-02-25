@@ -22,7 +22,7 @@ public class OrganisationTests
     public async Task Authorized_GetAll_ShouldReturnOK()
     {
         // Arrange
-        using var client = _fixture.CreateAuthenticatedClient(out var user);
+        using var client = _fixture.CreateAuthenticatedClient(out _);
         
         // Act
         var result = await client.GetAsync("/organisations");

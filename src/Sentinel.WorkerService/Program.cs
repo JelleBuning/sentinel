@@ -36,10 +36,13 @@ try
             
             // SignalR
             var deviceHubConnection = HubManager.Initialize("DeviceMessageHub", hostContext);
+            
             services.AddModuleDependencies();
-            services.AddStartupModules()
+            services
+                .AddStartupModules()
                 .AddScheduledModules()
-                .AddConsumers(deviceHubConnection);
+                .AddConsumers(deviceHubConnection)
+                .Build();
 
             _ = Task.Run(async () => await HubManager.Connect(deviceHubConnection)); // Don't block startup
         })

@@ -32,9 +32,9 @@ public class SentinelApiService(HttpClient client, IConfiguration configuration)
         result.EnsureSuccessStatusCode();
     }
 
-    public async Task UpdateDeviceInformationAsync(DeviceInformation deviceInformation)
+    public async Task UpdateDeviceInformationAsync(GetDeviceInformationDto getDeviceInformationDto)
     {
-        var result = await client.PutAsync($"/devices/{configuration["Id"]}", deviceInformation);
+        var result = await client.PutAsync($"/devices/{configuration["Id"]}", getDeviceInformationDto);
         result.EnsureSuccessStatusCode();
     }
 

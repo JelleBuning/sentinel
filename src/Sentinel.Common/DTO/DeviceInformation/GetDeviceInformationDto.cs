@@ -1,6 +1,6 @@
 ﻿namespace Sentinel.Common.DTO.DeviceInformation;
 
-public class DeviceInformation
+public class GetDeviceInformationDto
 {
     // General info
     public string? DeviceName { get; set; }
