@@ -4,6 +4,6 @@ public class DeviceRegistrationResponse
 {
     public int Id { get; set; }
     public int OrganisationId { get; set; }
-    public string AccessToken { get; set; }
-    public string RefreshToken { get; set; }
+    public required string AccessToken { get; set; }
+    public required string RefreshToken { get; set; }
 }

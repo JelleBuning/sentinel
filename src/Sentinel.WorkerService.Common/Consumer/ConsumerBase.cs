@@ -12,11 +12,13 @@ public abstract class ConsumerBase<TMessage, TResponse> : IHostedService, IModul
 
     protected ConsumerBase(IConsumerConfig<TMessage> config, ILogger<TMessage> logger)
     {
+        if(config.Connection == null) throw new ArgumentNullException(nameof(config.Connection));
         var messageName = typeof(TMessage).Name;
+        
         config.Connection.On(messageName, (TMessage message) =>
         {
             logger.LogInformation($"[*] {messageName} received");
-            return OnMessageReceived(message);
+            OnMessageReceived(message);
         });
     }
 

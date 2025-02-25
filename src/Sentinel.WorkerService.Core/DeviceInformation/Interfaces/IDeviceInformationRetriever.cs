@@ -2,5 +2,5 @@
 
 public interface IDeviceInformationRetriever
 {
-    public Sentinel.Common.DTO.DeviceInformation.DeviceInformation Retrieve();
+    public Sentinel.Common.DTO.DeviceInformation.GetDeviceInformationDto Retrieve();
 }

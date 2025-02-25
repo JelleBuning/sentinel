@@ -7,10 +7,10 @@ namespace Sentinel.WorkerService.Core.Windows.DeviceInformation;
 #pragma warning disable CA1416
 public class DeviceInformationRetriever : IDeviceInformationRetriever
 {
-    public Sentinel.Common.DTO.DeviceInformation.DeviceInformation Retrieve()
+    public Sentinel.Common.DTO.DeviceInformation.GetDeviceInformationDto Retrieve()
     {
         Kernel32Helper.GetPhysicallyInstalledSystemMemory(out var memKb);
-        return new Sentinel.Common.DTO.DeviceInformation.DeviceInformation
+        return new Sentinel.Common.DTO.DeviceInformation.GetDeviceInformationDto
         {
             DeviceName = Environment.MachineName,
             OsName = GetSystemManagementString("Win32_OperatingSystem", "Caption"),

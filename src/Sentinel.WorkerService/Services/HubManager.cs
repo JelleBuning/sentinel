@@ -33,12 +33,12 @@ public static class HubManager
                 connectionId = hubConnection.ConnectionId;
                 break;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 await Task.Delay(10000);
             }
 
-            var x = connectionId;
+            _ = connectionId;
             // TODO: put connectionId to device endpoint
         }
     }

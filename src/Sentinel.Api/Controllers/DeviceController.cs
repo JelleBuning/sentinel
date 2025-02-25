@@ -67,7 +67,7 @@ public class DeviceController(IDeviceRepository deviceRepository) : ControllerBa
     }
 
     [HttpPut("{id}")]
-    public IActionResult UpdateDeviceInfo(int id, DeviceInformation updateDto)
+    public IActionResult UpdateDeviceInfo(int id, UpdateDeviceInformationDto updateDto)
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState);

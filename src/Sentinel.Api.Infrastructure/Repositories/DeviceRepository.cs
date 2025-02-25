@@ -30,8 +30,6 @@ namespace Sentinel.Api.Infrastructure.Repositories
                 CreatedOn = DateTime.Now,
                 LastActive = DateTime.Now,
                 RefreshToken = tokenService.GenerateRefreshToken(),
-                DeviceDetails = null,
-                DeviceSecurity = null
             };
             organisation.Devices.Add(device);
             dbContext.SaveChanges();
@@ -76,7 +74,6 @@ namespace Sentinel.Api.Infrastructure.Repositories
         public GetDevicesResponse GetDevices(int userId)
         {
             var user = dbContext.Users.Include(user => user.Organisation).Single(x => x.Id == userId);
-            var x = dbContext.Devices.ToList();
             var devices = dbContext.Devices.Where(x => x.OrganisationId == user.OrganisationId).ToList();
             return new GetDevicesResponse()
             {
@@ -97,13 +94,12 @@ namespace Sentinel.Api.Infrastructure.Repositories
             dbContext.SaveChanges();
         }
         
-        public DeviceInformation GetDeviceInformation(int id)
+        public GetDeviceInformationDto GetDeviceInformation(int id)
         {
             var device = dbContext.Devices.Include(device => device.DeviceDetails).FirstOrDefault(x => x.Id == id) ??
                          throw new Exception("Device not found", new NotFoundException());
-
-            device.DeviceDetails ??= new DeviceDetails();
-            return new DeviceInformation
+            
+            return new GetDeviceInformationDto
             {
                 DeviceName = device.Name,
                 OsName = device.DeviceDetails.OsName,
@@ -118,14 +114,12 @@ namespace Sentinel.Api.Infrastructure.Repositories
             };
         }
 
-        public void UpdateDeviceInformation(int id, DeviceInformation updateDto)
+        public void UpdateDeviceInformation(int id, UpdateDeviceInformationDto updateDto)
         {
             var device = dbContext.Devices.Include(device => device.DeviceDetails).FirstOrDefault(s => s.Id == id) ??
                          throw new Exception("Device not found", new NotFoundException());
 
             device.Name = updateDto.DeviceName;
-            
-            device.DeviceDetails ??= new DeviceDetails();
             device.DeviceDetails.OsName = updateDto.OsName;
             device.DeviceDetails.OsVersion = updateDto.OsVersion;
             device.DeviceDetails.Version = updateDto.Version ;
@@ -190,8 +184,7 @@ namespace Sentinel.Api.Infrastructure.Repositories
             var device = dbContext.Devices.Include(d => d.DeviceSecurity).FirstOrDefault(x => x.Id == id) ??
                          throw new Exception("Device not found", new NotFoundException());
 
-            var securityInfo = device.DeviceSecurity ?? new DeviceSecurity();
-
+            var securityInfo = device.DeviceSecurity;
             return new SecurityInformation
             {
                 LastSecurityScan = new LastSecurityScan
@@ -220,9 +213,7 @@ namespace Sentinel.Api.Infrastructure.Repositories
         {
             var device = dbContext.Devices.Include(d => d.DeviceSecurity).FirstOrDefault(s => s.Id == id) ??
                          throw new Exception("Device not found", new NotFoundException());
-            
-            if (device.DeviceSecurity == null) return;
-            
+
             device.DeviceSecurity.LastScan = updateDto.LastSecurityScan.LastScan;
             device.DeviceSecurity.Duration = updateDto.LastSecurityScan.Duration;
             device.DeviceSecurity.AntivirusEnabled = updateDto.AntivirusEnabled;
