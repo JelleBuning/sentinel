@@ -32,6 +32,6 @@
     <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="8.3.0" />
     <PackageVersion Include="System.Management" Version="8.0.0" />
     <PackageVersion Include="System.Management.Automation" Version="7.5.0" />
-    <PackageVersion Include="System.ServiceProcess.ServiceController" Version="8.0.1" />
+    <PackageVersion Include="System.ServiceProcess.ServiceController" Version="9.0.2" />
   </ItemGroup>
 </Project>
