@@ -8,7 +8,7 @@ namespace Sentinel.Api.Integration.Tests.Device.Management;
 
 public class DeviceRetrievalTests
 {
-    private ApiFixture _fixture;
+    private ApiFixture _fixture = null!;
 
     [SetUp]
     public Task Setup()

@@ -6,7 +6,7 @@ namespace Sentinel.Api.Integration.Tests.Organisation;
 
 public class OrganisationTests
 {
-    private ApiFixture _fixture;
+    private ApiFixture _fixture = null!;
 
     [SetUp]
     public async Task Setup()

@@ -7,7 +7,7 @@ namespace Sentinel.Api.Controllers;
 
 
 [ApiController]
-[Authorize(Roles = "User")]
+// [Authorize(Roles = "User")]
 [Route("/organisations")]
 public class OrganisationController(IOrganisationRepository organisationRepository) : Controller
 {

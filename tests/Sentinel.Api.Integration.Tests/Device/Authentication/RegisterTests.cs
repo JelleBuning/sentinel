@@ -9,7 +9,7 @@ namespace Sentinel.Api.Integration.Tests.Device.Authentication;
 
 public class RegisterTests
 {
-    private ApiFixture _fixture;
+    private ApiFixture _fixture = null!;
     private Domain.Entities.Organisation _organisation;
 
     [SetUp]
