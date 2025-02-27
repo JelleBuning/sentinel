@@ -24,7 +24,6 @@ try
     app.UseAuthentication();
     app.UseAuthorization();
     app.MapControllers();
-    app.UseHttpsRedirection();
     
     app.AddHub<DeviceMessageHub>();
 

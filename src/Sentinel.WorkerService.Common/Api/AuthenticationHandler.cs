@@ -13,7 +13,7 @@ public class AuthenticationHandler(SentinelApiService apiService, ICredentialMan
         var deviceToken = await credentialManager.GetDeviceDetailsAsync() ?? await apiService.RegisterDeviceAsync(organisationHash, name, cancellationToken);
         while (deviceToken == null)
         {
-            await Task.Delay(5000, cancellationToken);
+            await Task.Delay(30000, cancellationToken);
             deviceToken = await apiService.RegisterDeviceAsync(organisationHash, name, cancellationToken);
         }
 
