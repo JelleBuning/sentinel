@@ -37,7 +37,7 @@ public class DeviceRetrievalTests
     public async Task Authorized_GetDevices_ShouldReturnOK()
     {
         // Arrange
-        using var client = _fixture.CreateAuthenticatedClient(out _);
+        using var client = _fixture.CreateAuthenticatedUser(out _);
 
         // Act
         var result = await client.GetAsync("/devices");
@@ -50,7 +50,7 @@ public class DeviceRetrievalTests
     public async Task Authorized_GetDevices_ShouldOnlyReturnOrganisationDevices()
     {
         // Arrange
-        using var client = _fixture.CreateAuthenticatedClient(out var user);
+        using var client = _fixture.CreateAuthenticatedUser(out var user);
         await using var dbContext = _fixture.GetDbContext();
         
         var organisation = dbContext.Organisations.Single(x => x.Id == user.OrganisationId);

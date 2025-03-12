@@ -1,5 +1,5 @@
 ﻿using System.Management;
-using Sentinel.Common.DTO.DeviceInformation;
+using Sentinel.Common.DTO.Device;
 using Sentinel.WorkerService.Core.Windows.DeviceInformation.Interfaces;
 
 namespace Sentinel.WorkerService.Core.Windows.DeviceInformation;

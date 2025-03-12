@@ -1,7 +1,8 @@
 ﻿using System.Text.Json;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Sentinel.Common.DTO.DeviceInformation;
+using Sentinel.Common.DTO.Device;
+using Sentinel.Common.DTO.Device.Information;
 using Sentinel.WorkerService.Common.Api.Extensions;
 using Sentinel.WorkerService.Common.DTO;
 

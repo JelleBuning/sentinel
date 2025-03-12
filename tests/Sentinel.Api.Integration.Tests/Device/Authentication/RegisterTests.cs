@@ -1,9 +1,8 @@
 ﻿using System.Net;
-using System.Text;
-using Newtonsoft.Json;
 using NUnit.Framework;
 using Sentinel.Api.Application.DTO.Device;
 using Sentinel.Api.Integration.Tests.Common;
+using Sentinel.WorkerService.Common.Api.Extensions;
 
 namespace Sentinel.Api.Integration.Tests.Device.Authentication;
 
@@ -29,12 +28,11 @@ public class RegisterTests
         using var client = _fixture.CreateClient();
 
         // Act
-        var content = new StringContent(JsonConvert.SerializeObject(new RegisterDeviceDto()
+        var result = await client.PostAsync("/devices/register", new RegisterDeviceDto
         {
             Name = "John Doe",
             OrganisationHash = _organisation.Hash,
-        }), Encoding.UTF8, "application/json");
-        var result = await client.PostAsync("/devices/auth/register", content);
+        });
 
         // Assert
         Assert.That(result.StatusCode, Is.EqualTo(HttpStatusCode.OK));
@@ -47,12 +45,11 @@ public class RegisterTests
         using var client = _fixture.CreateClient();
 
         // Act
-        var content = new StringContent(JsonConvert.SerializeObject(new RegisterDeviceDto()
+        var result = await client.PostAsync("/devices/register", new RegisterDeviceDto
         {
             Name = "John Doe",
             OrganisationHash = Guid.Empty,
-        }), Encoding.UTF8, "application/json");
-        var result = await client.PostAsync("/devices/auth/register", content);
+        });
 
         // Assert
         Assert.That(result.StatusCode, Is.EqualTo(HttpStatusCode.NotFound));

@@ -1,4 +1,4 @@
-﻿namespace Sentinel.Common.DTO.DeviceInformation;
+﻿namespace Sentinel.Common.DTO.Device.Information;
 
 public class GetDeviceInformationDto
 {

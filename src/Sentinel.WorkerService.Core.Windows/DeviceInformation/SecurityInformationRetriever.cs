@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 using System.Management;
-using Sentinel.Common.DTO.DeviceInformation;
+using Sentinel.Common.DTO.Device;
 using Sentinel.WorkerService.Core.DeviceInformation.Interfaces;
 using Sentinel.WorkerService.Core.Windows.DeviceInformation.Interfaces;
 
@@ -15,6 +15,9 @@ public class SecurityInformationRetriever(IFirewallSettingsRetriever firewallSet
         const string computerStatusKey = "MSFT_MpComputerStatus";
         using var managementObjectSearcher = new ManagementObjectSearcher(defenderScope, "SELECT * FROM " + computerStatusKey);
         var managementBaseObject = managementObjectSearcher.Get().Cast<ManagementBaseObject>().Single();
+
+        var x = ParseExact(managementBaseObject["QuickScanStartTime"]);
+        
         var securityInformation = new SecurityInformation
         {
             AntivirusEnabled = (bool)managementBaseObject["AntiVirusEnabled"],

@@ -21,6 +21,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\src\Sentinel.Api\Sentinel.Api.csproj" />
+      <ProjectReference Include="..\..\src\Sentinel.WorkerService.Common\Sentinel.WorkerService.Common.csproj" />
     </ItemGroup>
 
 </Project>

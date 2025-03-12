@@ -1,9 +1,8 @@
 ﻿using System.Net;
-using System.Text;
-using Newtonsoft.Json;
 using NUnit.Framework;
 using Sentinel.Api.Application.DTO.User;
 using Sentinel.Api.Integration.Tests.Common;
+using Sentinel.WorkerService.Common.Api.Extensions;
 
 namespace Sentinel.Api.Integration.Tests.User.Authentication;
 
@@ -16,16 +15,13 @@ public class SignInTests
         using var client = new ApiFixture().CreateClient();
 
         // Act
-        var registerContent = new StringContent(JsonConvert.SerializeObject(new RegisterUserDto { Email = "test@test.com", Password = "password" }), Encoding.UTF8, "application/json");
-        _ = await client.PostAsync("/users/auth/register", registerContent);
-
-        var signInContent = new StringContent(JsonConvert.SerializeObject(new SignInUserDto { Email = "test@test.com", Password = "password" }), Encoding.UTF8, "application/json");
-        var result = await client.PostAsync("/users/auth/sign_in", signInContent);
+        _ = await client.PostAsync("/users/register", new RegisterUserDto { Email = "test@test.com", Password = "password" });
+        var result = await client.PostAsync("/auth/users/sign_in", new SignInUserDto { Email = "test@test.com", Password = "password" });
 
         // Assert
         Assert.That(result.StatusCode, Is.EqualTo(HttpStatusCode.OK));
     }
-    
+
     [Test]
     public async Task InvalidPassword_Login_ShouldReturnUnauthorized()
     {
@@ -33,16 +29,13 @@ public class SignInTests
         using var client = new ApiFixture().CreateClient();
 
         // Act
-        var registerContent = new StringContent(JsonConvert.SerializeObject(new RegisterUserDto { Email = "test@test.com", Password = "password" }), Encoding.UTF8, "application/json");
-        _ = await client.PostAsync("/users/auth/register", registerContent);
-
-        var signInContent = new StringContent(JsonConvert.SerializeObject(new SignInUserDto { Email = "test@test.com", Password = "hl;asdfljasdjfdaflha;sihjefkldj;aslfjkdsa;dfjasd" }), Encoding.UTF8, "application/json");
-        var result = await client.PostAsync("/users/auth/sign_in", signInContent);
+        _ = await client.PostAsync("/users/register", new RegisterUserDto { Email = "test@test.com", Password = "password" });
+        var result = await client.PostAsync("/auth/users/sign_in", new SignInUserDto { Email = "test@test.com", Password = "hl;asdfljasdjfdaflha;sihjefkldj;aslfjkdsa;dfjasd" });
 
         // Assert
         Assert.That(result.StatusCode, Is.EqualTo(HttpStatusCode.Unauthorized));
     }
-    
+
     [Test]
     public async Task InvalidEmail_Login_ShouldReturnUnauthorized()
     {
@@ -50,11 +43,8 @@ public class SignInTests
         using var client = new ApiFixture().CreateClient();
 
         // Act
-        var registerContent = new StringContent(JsonConvert.SerializeObject(new RegisterUserDto { Email = "test@test.com", Password = "password" }), Encoding.UTF8, "application/json");
-        _ = await client.PostAsync("/users/auth/register", registerContent);
-
-        var signInContent = new StringContent(JsonConvert.SerializeObject(new SignInUserDto { Email = "ahjfdkenfine@test.com", Password = "password" }), Encoding.UTF8, "application/json");
-        var result = await client.PostAsync("/users/auth/sign_in", signInContent);
+        _ = await client.PostAsync("/users/register", new RegisterUserDto { Email = "test@test.com", Password = "password" });
+        var result = await client.PostAsync("/auth/users/sign_in", new SignInUserDto { Email = "ahjfdkenfine@test.com", Password = "password" });
 
         // Assert
         Assert.That(result.StatusCode, Is.EqualTo(HttpStatusCode.Unauthorized));
