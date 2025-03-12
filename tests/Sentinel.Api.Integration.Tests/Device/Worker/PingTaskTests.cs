@@ -8,7 +8,7 @@ namespace Sentinel.Api.Integration.Tests.Device.Worker;
 public class PingTaskTests
 {
     private ApiFixture _fixture = null!;
-    private Domain.Entities.Organisation _organisation;
+    private Domain.Entities.Organisation _organisation = null!;
 
     [SetUp]
     public async Task Setup()

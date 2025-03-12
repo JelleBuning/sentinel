@@ -11,7 +11,7 @@ namespace Sentinel.Api.Controllers;
 [ApiController]
 [Route("/devices")]
 [Authorize(Roles = "Device")]
-public class DeviceController(IDeviceRepository deviceRepository, IAuthRepository authRepository) : ControllerBase
+public class DeviceController(IDeviceRepository deviceRepository) : ControllerBase
 {
     [HttpPost("register")]
     [AllowAnonymous]
