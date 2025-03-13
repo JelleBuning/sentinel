@@ -93,11 +93,39 @@ Before beginning, ensure that your development environment is properly configure
 ### Prerequisites
 
 ### Installation
-1. Go to the latest [release](https://github.com/JelleBuning/sentinel/releases).
-2. Download the correct runtime for your system from the assets of the release.
-3. And you are ready to go! 
+This installation method utilizes Docker Compose for a streamlined setup. Ensure you have Docker and Docker Compose installed on your system.
 
+Create a docker-compose.yml file: Create a new file named docker-compose.yml in a directory of your choice. Copy and paste the following content into it:
 
+version: '3.4'
+name: sentinel
+services:
+  sentinel.api:
+    container_name: "sentinel.api"
+    image: ghcr.io/jellebuning/sentinel.api
+    ports:
+      - "7000:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Production" # "Development" | "Production" | "Staging"
+      ConnectionStrings__Database: "CONNECTIONSTRING_HERE"
+
+Run Docker Compose: In the same directory as your docker-compose.yml file, execute the following command:
+
+docker-compose up -d
+
+This command will download the necessary images, create the containers, and start them in detached mode.
+
+Verify the installation: You can verify that the containers are running by executing:
+
+docker-compose ps
+
+You should see the sentinel.api and sentinel.db containers running.
+
+Access the API: The API will be available at http://localhost:7000.
+
+Important Notes:
+
+    Replace "CONNECTIONSTRING_HERE" with a your database connectionstring.
 
 <!-- CONTRIBUTING -->
 ## Contributing
