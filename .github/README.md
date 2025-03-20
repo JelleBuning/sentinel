@@ -15,7 +15,7 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![Apache License 2.0 License][license-shield]][license-url]
+[![GNU Affero General Public License v3.0 License][license-shield]][license-url]
 
 
 
