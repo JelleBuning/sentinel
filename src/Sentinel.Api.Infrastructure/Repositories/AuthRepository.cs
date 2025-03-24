@@ -93,7 +93,7 @@ public class AuthRepository(AppDbContext dbContext, IConfiguration configuration
     {
         var principal = GetPrincipalFromExpiredToken(tokenDto.AccessToken);
         var claimId = principal.Claims.FirstOrDefault(c => c.Type == "Id")!.Value;
-        var role = principal.Claims.FirstOrDefault(c => c.Type == "Role")!.Value;
+        var role = principal.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)!.Value;
         
         var newAccessToken = GenerateAccessToken(principal.Claims);
         var newRefreshToken = GenerateRefreshToken();

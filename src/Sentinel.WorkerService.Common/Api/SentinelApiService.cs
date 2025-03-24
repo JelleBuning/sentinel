@@ -16,7 +16,7 @@ public class SentinelApiService(HttpClient client, IConfiguration configuration,
         try
         {
             var payload = new { organisationHash, name };
-            var output = await client.PostAsync("/devices/auth/register", payload, cancellationToken);
+            var output = await client.PostAsync("/devices/register", payload, cancellationToken);
             output.EnsureSuccessStatusCode();
             return JsonSerializer.Deserialize<DeviceRegistrationResponse>(
                 await output.Content.ReadAsStringAsync(cancellationToken));
