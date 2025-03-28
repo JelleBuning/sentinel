@@ -41,7 +41,7 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddScheduledModules(this IServiceCollection services)
     {
-        services.AddScheduledTask<PingModule>(scheduleConfig => scheduleConfig.Interval = TimeSpan.FromMinutes(0.75))
+        services.AddScheduledTask<PingModule>(scheduleConfig => scheduleConfig.Interval = TimeSpan.FromMinutes(1))
             .AddScheduledTask<DeviceInformationModule>(scheduleConfig =>
                 scheduleConfig.Interval = TimeSpan.FromMinutes(5))
             .AddScheduledTask<StorageInformationModule>(scheduleConfig =>

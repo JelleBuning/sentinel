@@ -1,6 +1,6 @@
 ﻿using Sentinel.Api.Application.DTO.Device;
-using Sentinel.Api.Application.DTO.Token;
-using Sentinel.Common.DTO.DeviceInformation;
+using Sentinel.Common.DTO.Device;
+using Sentinel.Common.DTO.Device.Information;
 
 namespace Sentinel.Api.Application.Interfaces
 {
@@ -8,7 +8,6 @@ namespace Sentinel.Api.Application.Interfaces
     {
         void Ping(int id);
         DeviceTokenResponse Register(RegisterDeviceDto registerDevice);
-        TokenResponse RefreshToken(RefreshTokenDto refreshTokenDto);
         GetDevicesResponse GetDevices(int userId);
         GetDeviceInformationDto GetDeviceInformation(int id);
         void UpdateDeviceInformation(int id, UpdateDeviceInformationDto update);

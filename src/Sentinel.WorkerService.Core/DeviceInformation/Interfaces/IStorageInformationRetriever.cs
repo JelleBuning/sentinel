@@ -1,4 +1,4 @@
-﻿using Sentinel.Common.DTO.DeviceInformation;
+﻿using Sentinel.Common.DTO.Device;
 
 namespace Sentinel.WorkerService.Core.DeviceInformation.Interfaces;
 

@@ -1,4 +1,5 @@
 ﻿using System.Management;
+using Sentinel.Common.DTO.Device.Information;
 using Sentinel.WorkerService.Common.Helpers;
 using Sentinel.WorkerService.Core.DeviceInformation.Interfaces;
 
@@ -7,10 +8,10 @@ namespace Sentinel.WorkerService.Core.Windows.DeviceInformation;
 #pragma warning disable CA1416
 public class DeviceInformationRetriever : IDeviceInformationRetriever
 {
-    public Sentinel.Common.DTO.DeviceInformation.GetDeviceInformationDto Retrieve()
+    public GetDeviceInformationDto Retrieve()
     {
         Kernel32Helper.GetPhysicallyInstalledSystemMemory(out var memKb);
-        return new Sentinel.Common.DTO.DeviceInformation.GetDeviceInformationDto
+        return new GetDeviceInformationDto
         {
             DeviceName = Environment.MachineName,
             OsName = GetSystemManagementString("Win32_OperatingSystem", "Caption"),

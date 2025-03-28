@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Sentinel.Api.Application.DTO.Device;
 using Sentinel.Api.Application.DTO.User;
 using Sentinel.Api.Infrastructure.Persistence;
 
@@ -14,10 +15,17 @@ public static class FactoryExtensions
         return dbContext;
     }
 
-    public static HttpClient CreateAuthenticatedClient(this ApiFixture fixture, out SignInUserResponse user)
+    public static HttpClient CreateAuthenticatedUser(this ApiFixture fixture, out SignInUserResponse user)
     {
         var client = fixture.CreateClient();
-        user = client.Authenticate().Result;
+        user = client.AuthenticateUserAsync().Result;
+        return client;
+    }
+    
+    public static HttpClient CreateAuthenticatedDevice(this ApiFixture fixture, Guid organisationHash, out DeviceTokenResponse device)
+    {
+        var client = fixture.CreateClient();
+        device = client.RegisterDeviceAsync(organisationHash).Result;
         return client;
     }
     

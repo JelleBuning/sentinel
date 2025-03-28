@@ -9,8 +9,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="9.0.2" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.2" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="9.0.3" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.3" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
         <PackageReference Include="NUnit" Version="4.3.2" />
         <PackageReference Include="GitHubActionsTestLogger" Version="2.4.1">
@@ -21,6 +21,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\src\Sentinel.Api\Sentinel.Api.csproj" />
+      <ProjectReference Include="..\..\src\Sentinel.WorkerService.Common\Sentinel.WorkerService.Common.csproj" />
     </ItemGroup>
 
 </Project>

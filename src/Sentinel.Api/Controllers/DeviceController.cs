@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Sentinel.Api.Application.DTO.Device;
-using Sentinel.Api.Application.DTO.Token;
 using Sentinel.Api.Application.Interfaces;
 using Sentinel.Api.Infrastructure.Exceptions;
-using Sentinel.Common.DTO.DeviceInformation;
+using Sentinel.Common.DTO.Device;
+using Sentinel.Common.DTO.Device.Information;
 
 namespace Sentinel.Api.Controllers;
 
@@ -13,7 +13,7 @@ namespace Sentinel.Api.Controllers;
 [Authorize(Roles = "Device")]
 public class DeviceController(IDeviceRepository deviceRepository) : ControllerBase
 {
-    [HttpPost("auth/register")]
+    [HttpPost("register")]
     [AllowAnonymous]
     public IActionResult RegisterDevice(RegisterDeviceDto deviceDto)
     {
@@ -23,24 +23,6 @@ public class DeviceController(IDeviceRepository deviceRepository) : ControllerBa
         try
         {
             var response = deviceRepository.Register(deviceDto);
-            return Ok(response);
-        }
-        catch (Exception ex)
-        {
-            return new ResponseManager().ReturnResponse(ex);
-        }
-    }
-    
-    [HttpPost("auth/refresh")]
-    [AllowAnonymous]
-    public IActionResult RefreshDeviceToken(RefreshTokenDto refreshTokenDto)
-    {
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState);
-        
-        try
-        {
-            var response = deviceRepository.RefreshToken(refreshTokenDto);
             return Ok(response);
         }
         catch (Exception ex)

@@ -15,7 +15,7 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![Apache License 2.0 License][license-shield]][license-url]
+[![GNU Affero General Public License v3.0 License][license-shield]][license-url]
 
 
 
@@ -93,10 +93,42 @@ Before beginning, ensure that your development environment is properly configure
 ### Prerequisites
 
 ### Installation
-1. Go to the latest [release](https://github.com/JelleBuning/sentinel/releases).
-2. Download the correct runtime for your system from the assets of the release.
-3. And you are ready to go! 
+This installation method utilizes Docker Compose for a streamlined setup. Ensure you have Docker and Docker Compose installed on your system.
 
+1.  **Create a `docker-compose.yml` file:**
+    Create a new file named `docker-compose.yml` in a directory of your choice. Copy and paste the following content into it:
+
+    ```yaml
+    version: '3.4'
+    name: sentinel
+    services:
+      sentinel.api:
+        container_name: "sentinel.api"
+        image: ghcr.io/jellebuning/sentinel.api
+        ports:
+          - "7000:8080"
+        environment:
+          ASPNETCORE_ENVIRONMENT: "Production" # "Development" | "Production" | "Staging"
+          ConnectionStrings__Database: "CONNECTIONSTRING_HERE"
+
+    ```
+
+2.  **Run Docker Compose:**
+    In the same directory as your `docker-compose.yml` file, execute the following command:
+
+    ```bash
+    docker-compose up -d
+    ```
+
+    This command will download the necessary images, create the containers, and start them in detached mode.
+
+
+4.  **Access the API:**
+    The API will be available at `http://localhost:7000`.
+
+**Important Notes:**
+
+* Replace `"CONNECTIONSTRING_HERE"` with a your database connectionstring.
 
 
 <!-- CONTRIBUTING -->
@@ -116,8 +148,7 @@ Don't forget to give the project a star! Thanks again!
 
 <!-- LICENSE -->
 ## License
-
-Distributed under the Apache 2.0 License. See `LICENSE` for more information.
+Distributed under the GNU Affero General Public License v3.0 License. See `LICENSE` for more information.
 
 
 <p align="right">(<a href="#top">back to top</a>)</p>

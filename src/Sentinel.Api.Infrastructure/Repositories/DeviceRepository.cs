@@ -2,13 +2,13 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Sentinel.Api.Application.DTO.Device;
-using Sentinel.Api.Application.DTO.Token;
 using Sentinel.Api.Application.Interfaces;
 using Sentinel.Api.Application.Services.Interfaces;
 using Sentinel.Api.Domain.Entities;
 using Sentinel.Api.Infrastructure.Exceptions;
 using Sentinel.Api.Infrastructure.Persistence;
-using Sentinel.Common.DTO.DeviceInformation;
+using Sentinel.Common.DTO.Device;
+using Sentinel.Common.DTO.Device.Information;
 
 namespace Sentinel.Api.Infrastructure.Repositories
 {
@@ -33,7 +33,7 @@ namespace Sentinel.Api.Infrastructure.Repositories
             };
             organisation.Devices.Add(device);
             dbContext.SaveChanges();
-
+        
             var claims = new List<Claim>
             {
                 new("Id", device.Id.ToString()),
@@ -48,29 +48,7 @@ namespace Sentinel.Api.Infrastructure.Repositories
                 RefreshToken = device.RefreshToken,
             };
         }
-
-        public TokenResponse RefreshToken(RefreshTokenDto refreshTokenDto) // TODO: fix
-        {
-            var principal = tokenService.GetPrincipalFromExpiredToken(refreshTokenDto.AccessToken);
-            var claimId = principal.Claims.FirstOrDefault(c => c.Type == "Id")!.Value;
-            var device = dbContext.Devices.SingleOrDefault(x => x.Id.ToString() == claimId);
-            if (device == null || device.RefreshToken != refreshTokenDto.RefreshToken)
-            {
-                throw new Exception("Invalid refresh token", new BadRequestException());
-            }
-
-            var newAccessToken = tokenService.GenerateAccessToken(principal.Claims);
-            var newRefreshToken = tokenService.GenerateRefreshToken();
-            device.RefreshToken = newRefreshToken;
-            dbContext.SaveChanges();
-            
-            return new TokenResponse
-            {
-                AccessToken = newAccessToken,
-                RefreshToken = newRefreshToken
-            };
-        }
-
+        
         public GetDevicesResponse GetDevices(int userId)
         {
             var user = dbContext.Users.Include(user => user.Organisation).Single(x => x.Id == userId);

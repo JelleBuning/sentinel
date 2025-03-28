@@ -52,6 +52,7 @@ public static class DependencyInjection
             options.UseSqlServer(configuration.GetConnectionString("Database"));
         });
 
+        services.AddScoped<IAuthRepository, AuthRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IDeviceRepository, DeviceRepository>();
         services.AddScoped<IOrganisationRepository, OrganisationRepository>();

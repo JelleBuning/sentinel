@@ -1,0 +1,19 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Sentinel.Api.Application/Sentinel.Api.Application.csproj" />
+    <Project Path="src/Sentinel.Api.Domain/Sentinel.Api.Domain.csproj" />
+    <Project Path="src/Sentinel.Api.Infrastructure/Sentinel.Api.Infrastructure.csproj" />
+    <Project Path="src/Sentinel.Api/Sentinel.Api.csproj" />
+    <Project Path="src/Sentinel.Common/Sentinel.Common.csproj" />
+    <Project Path="src/Sentinel.WorkerService.Common/Sentinel.WorkerService.Common.csproj" />
+    <Project Path="src/Sentinel.WorkerService.Core.Linux/Sentinel.WorkerService.Core.Linux.csproj" />
+    <Project Path="src/Sentinel.WorkerService.Core.Windows/Sentinel.WorkerService.Core.Windows.csproj" />
+    <Project Path="src/Sentinel.WorkerService.Core/Sentinel.WorkerService.Core.csproj" />
+    <Project Path="src/Sentinel.WorkerService.RemoteAccess/Sentinel.WorkerService.RemoteAccess.csproj" />
+    <Project Path="src/Sentinel.WorkerService/Sentinel.WorkerService.csproj" />
+    <File Path="src/Directory.Packages.props" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Sentinel.Api.Integration.Tests/Sentinel.Api.Integration.Tests.csproj" />
+  </Folder>
+</Solution>

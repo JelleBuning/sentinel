@@ -9,10 +9,10 @@ public class OrganisationTests
     private ApiFixture _fixture = null!;
 
     [SetUp]
-    public async Task Setup()
+    public Task Setup()
     {
         _fixture  = new ApiFixture();
-        await _fixture.AddOrganisationAsync(new Domain.Entities.Organisation());
+        return Task.CompletedTask;
     }
     
     [TearDown]
@@ -22,7 +22,7 @@ public class OrganisationTests
     public async Task Authorized_GetAll_ShouldReturnOK()
     {
         // Arrange
-        using var client = _fixture.CreateAuthenticatedClient(out _);
+        using var client = _fixture.CreateAuthenticatedUser(out _);
         
         // Act
         var result = await client.GetAsync("/organisations");
