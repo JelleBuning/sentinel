@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Scalar.AspNetCore;
 using Sentinel.Api;
 using Sentinel.Api.Application;
 using Sentinel.Api.Extensions;
@@ -19,8 +20,12 @@ try
     
     Log.Information("Starting host");
     var app = builder.Build();
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    if (app.Environment.IsDevelopment())
+    {
+        app.MapOpenApi();
+        app.MapScalarApiReference();
+    }
+    
     app.UseAuthentication();
     app.UseAuthorization();
     app.MapControllers();
