@@ -1,5 +1,4 @@
-﻿version: '3.4'
-name: sentinel
+﻿name: sentinel
 services:
   sentinel.api:
     container_name: "sentinel.api"

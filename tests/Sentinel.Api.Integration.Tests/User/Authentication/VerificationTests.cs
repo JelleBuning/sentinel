@@ -19,6 +19,7 @@ public class VerificationTests
         // Act
         _ = await client.PostAsync("/users/register", new RegisterUserDto { Email = "test@test.com", Password = "password" });
         var signInResponse = await client.PostAsync("/auth/users/sign_in", new SignInUserDto { Email = "test@test.com", Password = "password" });
+        var content = await signInResponse.Content.ReadAsStringAsync();
         var signInUserResponse = JsonSerializer.Deserialize<SignInUserResponse>(await signInResponse.Content.ReadAsStringAsync()) ?? throw new Exception("verification response was null");
 
         var totp = new Totp(Base32Encoding.ToBytes(signInUserResponse.TwoFactorToken), step: 30, mode: OtpHashMode.Sha1, totpSize: 6);

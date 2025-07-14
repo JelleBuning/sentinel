@@ -6,15 +6,14 @@ EXPOSE 8080
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["src/Sentinel.Api/Sentinel.Api.csproj", "src/Sentinel.Api/"]
-COPY ["src/Sentinel.Api.Application/Sentinel.Api.Application.csproj", "src/Sentinel.Api.Application/"]
-COPY ["src/Sentinel.Api.Domain/Sentinel.Api.Domain.csproj", "src/Sentinel.Api.Domain/"]
-COPY ["src/Sentinel.Common/Sentinel.Common.csproj", "src/Sentinel.Common/"]
-COPY ["src/Sentinel.Api.Infrastructure/Sentinel.Api.Infrastructure.csproj", "src/Sentinel.Api.Infrastructure/"]
-COPY ["src/Sentinel.WorkerService.Common/Sentinel.WorkerService.Common.csproj", "src/Sentinel.WorkerService.Common/"]
-RUN dotnet restore "src/Sentinel.Api/Sentinel.Api.csproj"
+COPY ["Sentinel.Api/Sentinel.Api.csproj", "Sentinel.Api/"]
+COPY ["Sentinel.Api.Application/Sentinel.Api.Application.csproj", "Sentinel.Api.Application/"]
+COPY ["Sentinel.Api.Domain/Sentinel.Api.Domain.csproj", "Sentinel.Api.Domain/"]
+COPY ["Sentinel.Common/Sentinel.Common.csproj", "Sentinel.Common/"]
+COPY ["Sentinel.Api.Infrastructure/Sentinel.Api.Infrastructure.csproj", "Sentinel.Api.Infrastructure/"]
+RUN dotnet restore "Sentinel.Api/Sentinel.Api.csproj"
 COPY . .
-WORKDIR "/src/src/Sentinel.Api"
+WORKDIR "/src/Sentinel.Api"
 RUN dotnet build "Sentinel.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
