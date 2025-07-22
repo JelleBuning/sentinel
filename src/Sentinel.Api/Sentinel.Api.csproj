@@ -17,9 +17,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Sentinel.Api.Application\Sentinel.Api.Application.csproj"/>
-        <ProjectReference Include="..\Sentinel.Api.Infrastructure\Sentinel.Api.Infrastructure.csproj"/>
-        <ProjectReference Include="..\Sentinel.Common\Sentinel.Common.csproj"/>
+        <ProjectReference Include="..\Sentinel.Api.Application\Sentinel.Api.Application.csproj" />
+        <ProjectReference Include="..\Sentinel.Api.Infrastructure\Sentinel.Api.Infrastructure.csproj" />
+        <ProjectReference Include="..\Sentinel.Common\Sentinel.Common.csproj" />
     </ItemGroup>
 
     <ItemGroup>
