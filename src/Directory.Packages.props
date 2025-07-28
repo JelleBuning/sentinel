@@ -24,10 +24,10 @@
     <PackageVersion Include="Serilog.Extensions.Hosting" Version="9.0.0" />
     <PackageVersion Include="Serilog.Sinks.Console" Version="6.0.0" />
     <PackageVersion Include="Serilog.Sinks.EventLog" Version="4.0.0" />
-    <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="8.12.1" />
+    <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="8.13.0" />
     <PackageVersion Include="System.Management" Version="9.0.7" />
     <PackageVersion Include="System.Management.Automation" Version="7.5.2" />
     <PackageVersion Include="System.ServiceProcess.ServiceController" Version="9.0.7" />
-    <PackageVersion Include="Scalar.AspNetCore" Version="2.6.3" />
+    <PackageVersion Include="Scalar.AspNetCore" Version="2.6.4" />
   </ItemGroup>
 </Project>
