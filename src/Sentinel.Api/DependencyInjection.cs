@@ -1,7 +1,6 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.Filters;
 
 namespace Sentinel.Api;
 
@@ -9,24 +8,15 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddPresentation(this IServiceCollection services)
     {
-        services.AddControllers()
-            .AddJsonOptions(jsonOptions => jsonOptions.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
-        services.Configure<JsonOptions>(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
-        services.AddEndpointsApiExplorer();
-        services.AddSwaggerGen(options =>
+        services.AddControllers();
+        services.Configure<JsonOptions>(options =>
         {
-            options.DocInclusionPredicate((_, _) => true);
-            options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme()
-            {
-                Description =
-                    "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
-                Name = "Authorization",
-                In = ParameterLocation.Header,
-                Type = SecuritySchemeType.ApiKey
-            });
-
-            options.OperationFilter<SecurityRequirementsOperationFilter>();
+            options.JsonSerializerOptions.PropertyNamingPolicy = null;
+            options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
         });
+        services.AddEndpointsApiExplorer();
+        services.AddOpenApi();
         services.AddProblemDetails();
         return services;
     }
