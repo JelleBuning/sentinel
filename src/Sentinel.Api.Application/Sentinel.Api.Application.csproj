@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" VersionOverride="9.0.8" />
     <ProjectReference Include="..\Sentinel.Api.Domain\Sentinel.Api.Domain.csproj" />
     <ProjectReference Include="..\Sentinel.Common\Sentinel.Common.csproj" />
   </ItemGroup>
