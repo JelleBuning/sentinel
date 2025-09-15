@@ -1,5 +1,4 @@
 ﻿using System.Net;
-using System.Text.Json;
 using NUnit.Framework;
 using OtpNet;
 using Sentinel.Api.Application.DTO.User;
