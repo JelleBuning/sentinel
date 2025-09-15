@@ -1,5 +1,4 @@
 ﻿using System.Net;
-using System.Text.Json;
 using NUnit.Framework;
 using Sentinel.Api.Application.DTO.Device;
 using Sentinel.Api.Integration.Tests.Common;
