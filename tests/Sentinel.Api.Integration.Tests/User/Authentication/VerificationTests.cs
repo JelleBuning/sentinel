@@ -5,6 +5,7 @@ using OtpNet;
 using Sentinel.Api.Application.DTO.User;
 using Sentinel.Api.Integration.Tests.Common;
 using Sentinel.WorkerService.Common.Api.Extensions;
+using Sentinel.WorkerService.Common.Extensions;
 
 namespace Sentinel.Api.Integration.Tests.User.Authentication;
 
@@ -19,7 +20,7 @@ public class VerificationTests
         // Act
         _ = await client.PostAsync("/users/register", new RegisterUserDto { Email = "test@test.com", Password = "password" });
         var signInResponse = await client.PostAsync("/auth/users/sign_in", new SignInUserDto { Email = "test@test.com", Password = "password" });
-        var signInUserResponse = JsonSerializer.Deserialize<SignInUserResponse>(await signInResponse.Content.ReadAsStringAsync()) ?? throw new Exception("verification response was null");
+        var signInUserResponse = await signInResponse.Content.DeserializeAsync<SignInUserResponse>() ?? throw new Exception("verification response was null") ;
 
         var totp = new Totp(Base32Encoding.ToBytes(signInUserResponse.TwoFactorToken), step: 30, mode: OtpHashMode.Sha1, totpSize: 6);
         var result = await client.PostAsync("/auth/users/verify", new VerifyUserDto

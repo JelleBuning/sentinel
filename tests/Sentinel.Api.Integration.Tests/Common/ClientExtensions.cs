@@ -6,6 +6,7 @@ using Sentinel.Api.Application.DTO.Device;
 using Sentinel.Api.Application.DTO.Token;
 using Sentinel.Api.Application.DTO.User;
 using Sentinel.WorkerService.Common.Api.Extensions;
+using Sentinel.WorkerService.Common.Extensions;
 
 namespace Sentinel.Api.Integration.Tests.Common;
 
@@ -20,15 +21,15 @@ public static class ClientExtensions
                 mode: OtpHashMode.Sha1, totpSize: 6);
             
             // verify
-            var verificationResult = await client.PostAsync("/auth/users/verify",
-                JsonSerializer.Serialize(new VerifyUserDto()
-                {
-                    UserId = signInUserResponse.UserId,
-                    AuthenticityToken = signInUserResponse.AuthenticityToken,
-                    OtpAttempt = totp.ComputeTotp(),
-                }));
-            var userTokenResponse = await JsonSerializer.DeserializeAsync<TokenDto>(await verificationResult.Content.ReadAsStreamAsync())
-                                    ?? throw new Exception("verification result was null");;
+            var verifyUserDto = new VerifyUserDto()
+            {
+                UserId = signInUserResponse.UserId,
+                AuthenticityToken = signInUserResponse.AuthenticityToken,
+                OtpAttempt = totp.ComputeTotp(),
+            };
+            
+            var verificationResult = await client.PostAsync("/auth/users/verify", JsonSerializer.Serialize(verifyUserDto));
+            var userTokenResponse = await verificationResult.Content.DeserializeAsync<TokenDto>() ?? throw new Exception("verification result was null");
             client.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("Bearer", $"{userTokenResponse.AccessToken}");
             return signInUserResponse;
@@ -49,8 +50,7 @@ public static class ClientExtensions
                 Name = "John Doe",
                 OrganisationHash = organisationHash,
             });
-            var deviceTokenResponse = await JsonSerializer.DeserializeAsync<DeviceTokenResponse>(await verificationResult.Content.ReadAsStreamAsync())
-                                    ?? throw new Exception("verification result was null");;
+            var deviceTokenResponse = await verificationResult.Content.DeserializeAsync<DeviceTokenResponse>() ?? throw new Exception("verification result was null");
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", $"{deviceTokenResponse.AccessToken}");
             return deviceTokenResponse;
         }
@@ -65,7 +65,7 @@ public static class ClientExtensions
     {
         _ = await client.PostAsync("/users/register", JsonSerializer.Serialize(new RegisterUserDto { Email = "test@test.com", Password = "password", }));
         var signInResult = await client.PostAsync("/auth/users/sign_in", JsonSerializer.Serialize(new SignInUserDto { Email = "test@test.com", Password = "password", }));
-        var response = JsonSerializer.Deserialize<SignInUserResponse>(await signInResult.Content.ReadAsStringAsync());
+        var response = await signInResult.Content.DeserializeAsync<SignInUserResponse>();
         if(response == null) throw new Exception("sign_in_response is null");
         return response;
     }

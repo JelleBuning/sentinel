@@ -1,8 +1,8 @@
 ﻿using System.Net;
-using System.Text.Json;
 using NUnit.Framework;
 using Sentinel.Api.Application.DTO.Device;
 using Sentinel.Api.Integration.Tests.Common;
+using Sentinel.WorkerService.Common.Extensions;
 
 namespace Sentinel.Api.Integration.Tests.Device.Management;
 
@@ -69,8 +69,7 @@ public class DeviceRetrievalTests
 
         // Act
         var result = await client.GetAsync("/devices");
-        var devices =
-            await JsonSerializer.DeserializeAsync<GetDevicesResponse>(await result.Content.ReadAsStreamAsync());
+        var devices = await result.Content.DeserializeAsync<GetDevicesResponse>();
 
         // Assert
         Assert.That(result.StatusCode, Is.EqualTo(HttpStatusCode.OK));

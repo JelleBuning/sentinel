@@ -1,4 +1,6 @@
-﻿namespace Sentinel.WorkerService.Common.DTO;
+﻿using System.Text.Json.Serialization;
+
+namespace Sentinel.WorkerService.Common.DTO;
 
 public class DeviceRegistrationResponse
 {

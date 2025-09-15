@@ -1,25 +1,26 @@
-﻿using System.Text.Json;
+﻿using System.Net.Http.Json;
+using System.Text.Json;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Sentinel.Common.DTO.Device;
 using Sentinel.Common.DTO.Device.Information;
 using Sentinel.WorkerService.Common.Api.Extensions;
 using Sentinel.WorkerService.Common.DTO;
+using Sentinel.WorkerService.Common.Extensions;
 
 namespace Sentinel.WorkerService.Common.Api;
 
 public class SentinelApiService(HttpClient client, IConfiguration configuration, ILogger<SentinelApiService> logger)
 {
-    public async Task<DeviceRegistrationResponse?> RegisterDeviceAsync(Guid organisationHash, string name,
-        CancellationToken cancellationToken)
+    public async Task<DeviceRegistrationResponse?> RegisterDeviceAsync(Guid organisationHash, string name, CancellationToken cancellationToken)
     {
         try
         {
             var payload = new { organisationHash, name };
             var output = await client.PostAsync("/devices/register", payload, cancellationToken);
             output.EnsureSuccessStatusCode();
-            return JsonSerializer.Deserialize<DeviceRegistrationResponse>(
-                await output.Content.ReadAsStringAsync(cancellationToken));
+
+            return await output.Content.DeserializeAsync<DeviceRegistrationResponse>(cancellationToken);
         }
         catch (Exception ex)
         {
