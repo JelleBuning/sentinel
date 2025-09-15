@@ -5,9 +5,9 @@ namespace Sentinel.WorkerService.Common.Extensions;
 
 public static class HttpContentExtensions
 {
-    public static Task<T?> DeserializeAsync<T>(this HttpContent content, CancellationToken cancellationToken = default)
+    public static Task<T?> DeserializeAsync<T>(this HttpContent content, CancellationToken cancellationToken = default, JsonSerializerOptions? serializerOptions = null)
     {
-        var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
+        var options = serializerOptions ?? new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
         return content.ReadFromJsonAsync<T>(options, cancellationToken);
     }
 }
