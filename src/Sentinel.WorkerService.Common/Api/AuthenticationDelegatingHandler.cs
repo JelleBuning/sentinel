@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using Microsoft.Extensions.Configuration;
@@ -46,8 +47,8 @@ public class AuthenticationDelegatingHandler(IConfiguration configuration, ICred
         var output = await base.SendAsync(httpRequestMessage, cancellationToken);
         output.EnsureSuccessStatusCode();
     
-        var deviceTokenResponse = JsonSerializer.Deserialize<DeviceTokenResponse>(await output.Content.ReadAsStringAsync(cancellationToken))!;
-        await credentialManager.SetTokensAsync(deviceTokenResponse);
-        return deviceTokenResponse;
+        var deviceTokenResponse = await output.Content.ReadFromJsonAsync<DeviceTokenResponse>(new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase}, cancellationToken);
+        await credentialManager.SetTokensAsync(deviceTokenResponse!);
+        return deviceTokenResponse!;
     }
 }
