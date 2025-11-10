@@ -28,6 +28,6 @@
     <PackageVersion Include="System.Management" Version="9.0.10" />
     <PackageVersion Include="System.Management.Automation" Version="7.5.4" />
     <PackageVersion Include="System.ServiceProcess.ServiceController" Version="9.0.10" />
-    <PackageVersion Include="Scalar.AspNetCore" Version="2.9.0" />
+    <PackageVersion Include="Scalar.AspNetCore" Version="2.10.3" />
   </ItemGroup>
 </Project>
