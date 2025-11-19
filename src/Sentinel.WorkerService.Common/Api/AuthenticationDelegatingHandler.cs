@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.Json;
 using Microsoft.Extensions.Configuration;
 using Sentinel.WorkerService.Common.DTO;
+using Sentinel.WorkerService.Common.Extensions;
 using Sentinel.WorkerService.Common.Services.Interfaces;
 
 namespace Sentinel.WorkerService.Common.Api;
@@ -46,8 +47,8 @@ public class AuthenticationDelegatingHandler(IConfiguration configuration, ICred
         var output = await base.SendAsync(httpRequestMessage, cancellationToken);
         output.EnsureSuccessStatusCode();
     
-        var deviceTokenResponse = JsonSerializer.Deserialize<DeviceTokenResponse>(await output.Content.ReadAsStringAsync(cancellationToken))!;
-        await credentialManager.SetTokensAsync(deviceTokenResponse);
-        return deviceTokenResponse;
+        var deviceTokenResponse = await output.Content.DeserializeAsync<DeviceTokenResponse>(cancellationToken);
+        await credentialManager.SetTokensAsync(deviceTokenResponse!);
+        return deviceTokenResponse!;
     }
 }

@@ -10,7 +10,8 @@ public class AuthenticationHandler(SentinelApiService apiService, ICredentialMan
     public async Task<DeviceRegistrationResponse> EnsureAuthenticated(Guid organisationHash, string name,
         CancellationToken cancellationToken)
     {
-        var deviceToken = await credentialManager.GetDeviceDetailsAsync() ?? await apiService.RegisterDeviceAsync(organisationHash, name, cancellationToken);
+        var deviceToken = await credentialManager.GetDeviceDetailsAsync() 
+                          ?? await apiService.RegisterDeviceAsync(organisationHash, name, cancellationToken);
         while (deviceToken == null)
         {
             await Task.Delay(30000, cancellationToken);

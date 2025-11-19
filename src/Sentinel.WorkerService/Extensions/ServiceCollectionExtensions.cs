@@ -41,15 +41,12 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddScheduledModules(this IServiceCollection services)
     {
-        services.AddScheduledTask<PingModule>(scheduleConfig => scheduleConfig.Interval = TimeSpan.FromMinutes(1))
-            .AddScheduledTask<DeviceInformationModule>(scheduleConfig =>
-                scheduleConfig.Interval = TimeSpan.FromMinutes(5))
-            .AddScheduledTask<StorageInformationModule>(scheduleConfig =>
-                scheduleConfig.Interval = TimeSpan.FromMinutes(10))
-            .AddScheduledTask<SecurityInformationModule>(scheduleConfig =>
-                scheduleConfig.Interval = TimeSpan.FromMinutes(2.5))
-            .AddScheduledTask<SoftwareInformationModule>(scheduleConfig =>
-                scheduleConfig.Interval = TimeSpan.FromMinutes(30));
+        services
+            .AddScheduledTask<PingModule>(scheduleConfig => scheduleConfig.Interval = TimeSpan.FromMinutes(1))
+            .AddScheduledTask<DeviceInformationModule>(scheduleConfig => scheduleConfig.Interval = TimeSpan.FromMinutes(5))
+            .AddScheduledTask<StorageInformationModule>(scheduleConfig => scheduleConfig.Interval = TimeSpan.FromMinutes(10))
+            .AddScheduledTask<SecurityInformationModule>(scheduleConfig => scheduleConfig.Interval = TimeSpan.FromMinutes(2.5))
+            .AddScheduledTask<SoftwareInformationModule>(scheduleConfig => scheduleConfig.Interval = TimeSpan.FromMinutes(30));
         return services;
     }
 
@@ -72,11 +69,9 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
-    private static IServiceCollection AddConsumer<TConsumer, TMessage>(this IServiceCollection services,
-        Action<IConsumerConfig<TMessage>> consumerConfig) where TConsumer : class, IHostedService, IModule
+    private static IServiceCollection AddConsumer<TConsumer, TMessage>(this IServiceCollection services, Action<IConsumerConfig<TMessage>> consumerConfig) where TConsumer : class, IHostedService, IModule
     {
-        if (consumerConfig == null)
-            throw new ArgumentNullException(nameof(consumerConfig), "Please provide consumer configuration");
+        if (consumerConfig == null) throw new ArgumentNullException(nameof(consumerConfig), "Please provide consumer configuration");
         if (!LicenseManager.IsLicensed<TConsumer>()) return services;
 
         var config = new ConsumerConfig<TMessage>();
@@ -87,11 +82,9 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
-    private static IServiceCollection AddScheduledTask<T>(this IServiceCollection services,
-        Action<IScheduledModuleConfig<T>> scheduledTaskConfig) where T : ScheduledModuleBase<T>, IModule
+    private static IServiceCollection AddScheduledTask<T>(this IServiceCollection services, Action<IScheduledModuleConfig<T>> scheduledTaskConfig) where T : ScheduledModuleBase<T>, IModule
     {
-        if (scheduledTaskConfig == null)
-            throw new ArgumentNullException(nameof(scheduledTaskConfig), "Please provide scheduled task configuration");
+        if (scheduledTaskConfig == null) throw new ArgumentNullException(nameof(scheduledTaskConfig), "Please provide scheduled task configuration");
         if (!LicenseManager.IsLicensed<T>()) return services;
 
         var config = new ScheduledModuleConfig<T>();
@@ -103,7 +96,5 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
-    public static void Build(this IServiceCollection _)
-    {
-    }
+    public static void Build(this IServiceCollection _) { }
 }

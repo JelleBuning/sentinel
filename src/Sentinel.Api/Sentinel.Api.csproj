@@ -8,19 +8,18 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.OpenApi" />
-        <PackageReference Include="Swashbuckle.AspNetCore"/>
-        <PackageReference Include="Swashbuckle.AspNetCore.Filters"/>
+        <PackageReference Include="Scalar.AspNetCore" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Sentinel.Api.Application\Sentinel.Api.Application.csproj"/>
-        <ProjectReference Include="..\Sentinel.Api.Infrastructure\Sentinel.Api.Infrastructure.csproj"/>
-        <ProjectReference Include="..\Sentinel.Common\Sentinel.Common.csproj"/>
+        <ProjectReference Include="..\Sentinel.Api.Application\Sentinel.Api.Application.csproj" />
+        <ProjectReference Include="..\Sentinel.Api.Infrastructure\Sentinel.Api.Infrastructure.csproj" />
+        <ProjectReference Include="..\Sentinel.Common\Sentinel.Common.csproj" />
     </ItemGroup>
 
     <ItemGroup>
