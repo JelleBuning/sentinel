@@ -1,4 +1,4 @@
-﻿using Sentinel.Common.Messages;
+﻿using Sentinel.Common.SignalR;
 
 namespace Sentinel.Api.Infrastructure.SignalR.Interfaces;
 

@@ -32,7 +32,7 @@ try
 
             // Build the service provider to resolve the authentication handler
             var authenticationHandler = services.BuildServiceProvider().GetRequiredService<IAuthenticationHandler>();
-            authenticationHandler.EnsureAuthenticated(Guid.Parse(args[0]), Environment.MachineName, CancellationToken.None).Wait();
+            authenticationHandler.EnsureAuthenticatedAsync(Guid.Parse(args[0]), Environment.MachineName, CancellationToken.None).Wait();
             
             // SignalR
             var deviceHubConnection = HubManager.Initialize("DeviceMessageHub", hostContext);

@@ -3,8 +3,8 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using Microsoft.Extensions.Configuration;
+using Sentinel.WorkerService.Common.Api.Extensions;
 using Sentinel.WorkerService.Common.DTO;
-using Sentinel.WorkerService.Common.Extensions;
 using Sentinel.WorkerService.Common.Services.Interfaces;
 
 namespace Sentinel.WorkerService.Common.Api;

@@ -1,8 +1,14 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Mediator;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Sentinel.Api.Application.Commands.Devices.Ping;
+using Sentinel.Api.Application.Commands.Devices.Register;
+using Sentinel.Api.Application.Commands.Devices.Update.DeviceInformation;
+using Sentinel.Api.Application.Commands.Devices.Update.SecurityInformation;
+using Sentinel.Api.Application.Commands.Devices.Update.SoftwareInformation;
+using Sentinel.Api.Application.Commands.Devices.Update.StorageInformation;
 using Sentinel.Api.Application.DTO.Device;
-using Sentinel.Api.Application.Interfaces;
-using Sentinel.Api.Infrastructure.Exceptions;
+using Sentinel.Api.Extensions;
 using Sentinel.Common.DTO.Device;
 using Sentinel.Common.DTO.Device.Information;
 
@@ -11,108 +17,48 @@ namespace Sentinel.Api.Controllers;
 [ApiController]
 [Route("/devices")]
 [Authorize(Roles = "Device")]
-public class DeviceController(IDeviceRepository deviceRepository) : ControllerBase
+public class DeviceController(ISender sender) : ControllerBase
 {
     [HttpPost("register")]
     [AllowAnonymous]
-    public IActionResult RegisterDevice(RegisterDeviceDto deviceDto)
+    public async Task<IActionResult> RegisterDevice([FromBody] RegisterDeviceDto registerDeviceDto)
     {
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState);
-
-        try
-        {
-            var response = deviceRepository.Register(deviceDto);
-            return Ok(response);
-        }
-        catch (Exception ex)
-        {
-            return new ResponseManager().ReturnResponse(ex);
-        }
+        var response = await sender.Send(new RegisterDeviceCommand(registerDeviceDto.OrganisationHash, registerDeviceDto.Name));
+        return Ok(response);
     }
 
     [HttpPost("{id}/ping")]
-    public IActionResult Ping(int id)
+    public async Task<IActionResult> Ping(int id)
     {
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState);
-
-        try
-        {
-            deviceRepository.Ping(id);
-            return Ok();
-        }
-        catch (Exception ex)
-        {
-            return new ResponseManager().ReturnResponse(ex);
-        }
+        await sender.Send(new PingDeviceCommand(id));
+        return Ok();
     }
 
     [HttpPut("{id}")]
-    public IActionResult UpdateDeviceInfo(int id, UpdateDeviceInformationDto updateDto)
+    public async Task<IActionResult> UpdateDeviceInfo(int id, [FromBody] UpdateDeviceInformationDto updateDto)
     {
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState);
-
-        try
-        {
-            deviceRepository.UpdateDeviceInformation(id, updateDto);
-            return Ok();
-        }
-        catch (Exception ex)
-        {
-            return new ResponseManager().ReturnResponse(ex);
-        }
+        await sender.Send(new UpdateDeviceInformationCommand(id, updateDto));
+        return Ok();
     }
 
     [HttpPut("{id}/storage")]
-    public IActionResult UpdateStorageInfo(int id, StorageInformation updateDto)
+    public async Task<IActionResult> UpdateStorageInfo(int id, [FromBody] StorageInformationDto updateDto)
     {
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState);
-
-        try
-        {
-            deviceRepository.UpdateStorageInfo(id, updateDto);
-            return Ok();
-        }
-        catch (Exception ex)
-        {
-            return new ResponseManager().ReturnResponse(ex);
-        }
+        await sender.Send(new UpdateStorageInformationCommand(id, updateDto));
+        return Ok();
     }
     
     [HttpPut("{id}/security")]
-    public IActionResult UpdateSecurityInfo(int id, SecurityInformation updateDto)
+    public async Task<IActionResult> UpdateSecurityInfo(int id, [FromBody] SecurityInformationDto updateDto)
     {
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState);
-
-        try
-        {
-            deviceRepository.UpdateSecurityInfo(id, updateDto);
-            return Ok();
-        }
-        catch (Exception ex)
-        {
-            return new ResponseManager().ReturnResponse(ex);
-        }
+        await sender.Send(new UpdateSecurityInformationCommand(id, updateDto));
+        return Ok();
     }
 
     [HttpPut("{id}/software")]
-    public IActionResult UpdateSoftwareInfo(int id, SoftwareInformation updateDto)
+    public async Task<IActionResult> UpdateSoftwareInfo(int id, [FromBody] SoftwareInformationDto updateDto)
     {
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState);
-
-        try
-        {
-            deviceRepository.UpdateSoftwareInfo(id, updateDto);
-            return Ok();
-        }
-        catch (Exception ex)
-        {
-            return new ResponseManager().ReturnResponse(ex);
-        }
+        await sender.Send(new UpdateSoftwareInformationCommand(id, updateDto));
+        return Ok();
     }
 }

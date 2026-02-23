@@ -14,7 +14,7 @@ public class UserRepository(AppDbContext dbContext) : IUserRepository
         var userExists = dbContext.Users.FirstOrDefault(x => x.Email.ToLower() == user.Email.ToLower());
         if (userExists != null)
         {
-            throw new Exception("Email already in use", new ForbiddenException());
+            throw new ForbiddenException("Email already in use");
         }
 
         var key = KeyGeneration.GenerateRandomKey(20);

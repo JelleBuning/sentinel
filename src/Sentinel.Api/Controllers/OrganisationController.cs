@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Mediator;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Sentinel.Api.Application.Interfaces;
-using Sentinel.Api.Infrastructure.Exceptions;
+using Sentinel.Api.Application.Queries.Organisations.GetAllOrganisations;
 
 namespace Sentinel.Api.Controllers;
 
@@ -9,21 +9,12 @@ namespace Sentinel.Api.Controllers;
 [ApiController]
 [Authorize(Roles = "User")]
 [Route("/organisations")]
-public class OrganisationController(IOrganisationRepository organisationRepository) : Controller
+public class OrganisationController(ISender sender) : Controller
 {
     [HttpGet]
-    public IActionResult GetOrganisations()
+    public async Task<IActionResult> GetOrganisations()
     {
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState);
-
-        try
-        {
-            return Ok(organisationRepository.GetAll());
-        }
-        catch (Exception ex)
-        {
-            return new ResponseManager().ReturnResponse(ex);
-        }
+        var result = await sender.Send(new GetAllOrganisationsQuery());
+        return Ok(result);
     }
 }

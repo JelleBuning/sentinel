@@ -13,6 +13,7 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" />
         <PackageReference Include="NUnit" />
+        <PackageReference Include="NUnit3TestAdapter" />
         <PackageReference Include="GitHubActionsTestLogger">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -21,7 +22,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\src\Sentinel.Api\Sentinel.Api.csproj" />
-      <ProjectReference Include="..\..\src\Sentinel.WorkerService.Common\Sentinel.WorkerService.Common.csproj" />
     </ItemGroup>
 
 </Project>

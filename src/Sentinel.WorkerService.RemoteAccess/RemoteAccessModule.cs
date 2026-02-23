@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
-using Sentinel.Common.Messages;
+using Sentinel.Common.SignalR;
 using Sentinel.WorkerService.Common.Consumer;
 using Sentinel.WorkerService.Common.Consumer.Interfaces;
 using Sentinel.WorkerService.RemoteAccess.Services.Interfaces;
@@ -8,7 +8,7 @@ namespace Sentinel.WorkerService.RemoteAccess;
 
 public class RemoteAccessModule(IConsumerConfig<RemoteAccessMessage> config, ILogger<RemoteAccessMessage> logger, IRemoteAccessService remoteAccessService) : ConsumerBase<RemoteAccessMessage, RemoteAccessResponseMessage>(config, logger)
 {
-    public override Task<RemoteAccessResponseMessage> OnMessageReceived(RemoteAccessMessage context)
+    protected override Task<RemoteAccessResponseMessage> OnMessageReceived(RemoteAccessMessage context)
     {
         try
         {
