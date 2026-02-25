@@ -1,8 +1,7 @@
-﻿namespace Sentinel.WorkerService.Common.Module.Interfaces
+﻿namespace Sentinel.WorkerService.Common.Module.Interfaces;
+
+// ReSharper disable once UnusedTypeParameter
+public interface IScheduledModuleConfig<T>
 {
-    // ReSharper disable once UnusedTypeParameter
-    public interface IScheduledModuleConfig<T>
-    {
-        public TimeSpan Interval { get; set; }
-    }
+    public TimeSpan Interval { get; set; }
 }

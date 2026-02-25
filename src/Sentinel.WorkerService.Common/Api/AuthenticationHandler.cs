@@ -7,7 +7,7 @@ namespace Sentinel.WorkerService.Common.Api;
 public class AuthenticationHandler(SentinelApiService apiService, ICredentialManager credentialManager)
     : IAuthenticationHandler
 {
-    public async Task<DeviceRegistrationResponse> EnsureAuthenticated(Guid organisationHash, string name,
+    public async Task<DeviceRegistrationResponse> EnsureAuthenticatedAsync(Guid organisationHash, string name,
         CancellationToken cancellationToken)
     {
         var deviceToken = await credentialManager.GetDeviceDetailsAsync() 

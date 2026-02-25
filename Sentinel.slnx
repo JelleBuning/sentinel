@@ -11,7 +11,6 @@
     <Project Path="src/Sentinel.WorkerService.Core/Sentinel.WorkerService.Core.csproj" />
     <Project Path="src/Sentinel.WorkerService.RemoteAccess/Sentinel.WorkerService.RemoteAccess.csproj" />
     <Project Path="src/Sentinel.WorkerService/Sentinel.WorkerService.csproj" />
-    <File Path="src/Directory.Packages.props" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/Sentinel.Api.Integration.Tests/Sentinel.Api.Integration.Tests.csproj" />

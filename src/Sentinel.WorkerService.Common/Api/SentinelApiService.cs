@@ -4,7 +4,6 @@ using Sentinel.Common.DTO.Device;
 using Sentinel.Common.DTO.Device.Information;
 using Sentinel.WorkerService.Common.Api.Extensions;
 using Sentinel.WorkerService.Common.DTO;
-using Sentinel.WorkerService.Common.Extensions;
 
 namespace Sentinel.WorkerService.Common.Api;
 
@@ -22,7 +21,7 @@ public class SentinelApiService(HttpClient client, IConfiguration configuration,
         }
         catch (Exception ex)
         {
-            logger.LogError(ex.Message);
+            logger.LogError(ex, "Failed to register device. OrganisationHash: {OrganisationHash}, Name: {Name}", organisationHash, name);
             return null;
         }
     }
@@ -39,21 +38,21 @@ public class SentinelApiService(HttpClient client, IConfiguration configuration,
         result.EnsureSuccessStatusCode();
     }
 
-    public async Task UpdateStorageInformationAsync(StorageInformation storageInformation)
+    public async Task UpdateStorageInformationAsync(StorageInformationDto storageInformationDto)
     {
-        var result = await client.PutAsync($"/devices/{configuration["Id"]}/storage", storageInformation);
+        var result = await client.PutAsync($"/devices/{configuration["Id"]}/storage", storageInformationDto);
         result.EnsureSuccessStatusCode();
     }
 
-    public async Task UpdateSecurityInformationAsync(SecurityInformation securityInformation)
+    public async Task UpdateSecurityInformationAsync(SecurityInformationDto securityInformationDto)
     {
-        var result = await client.PutAsync($"/devices/{configuration["Id"]}/security", securityInformation);
+        var result = await client.PutAsync($"/devices/{configuration["Id"]}/security", securityInformationDto);
         result.EnsureSuccessStatusCode();
     }
 
-    public async Task UpdateSoftwareInformationAsync(SoftwareInformation softwareInformation)
+    public async Task UpdateSoftwareInformationAsync(SoftwareInformationDto softwareInformationDto)
     {
-        var result = await client.PutAsync($"/devices/{configuration["Id"]}/software", softwareInformation);
+        var result = await client.PutAsync($"/devices/{configuration["Id"]}/software", softwareInformationDto);
         result.EnsureSuccessStatusCode();
     }
 }

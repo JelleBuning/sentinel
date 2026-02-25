@@ -1,64 +1,35 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Mediator;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Sentinel.Api.Application.DTO.Token;
-using Sentinel.Api.Application.DTO.User;
-using Sentinel.Api.Application.Interfaces;
-using Sentinel.Api.Infrastructure.Exceptions;
+using Sentinel.Api.Application.Commands.Auth.Login;
+using Sentinel.Api.Application.Commands.Auth.RefreshToken;
+using Sentinel.Api.Application.Commands.Auth.VerifyTotp;
 
 namespace Sentinel.Api.Controllers;
 
 [ApiController]
 [Route("/auth")]
-public class AuthController(IAuthRepository authRepository) : ControllerBase
+public class AuthController(ISender sender) : ControllerBase
 {
     [HttpPost("users/sign_in")]
-    public async Task<IActionResult> Authenticate([FromBody] SignInUserDto singInUserDto)
+    public async Task<IActionResult> Authenticate([FromBody] LoginCommand command)
     {
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState);
-        
-        try
-        {
-            return Ok(await authRepository.AuthenticateAsync(singInUserDto));
-        }
-        catch (Exception ex)
-        {
-            return new ResponseManager().ReturnResponse(ex);
-        }
+        var result = await sender.Send(command);
+        return Ok(result);
     }
 
     [HttpPost("users/verify")]
-    public async Task<IActionResult> VerifyTotp([FromBody] VerifyUserDto verifyUserDto)
+    public async Task<IActionResult> VerifyTotp([FromBody] VerifyTotpCommand command)
     {
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState);
-
-        try
-        {
-            var user = await authRepository.VerifyTotpAsync(verifyUserDto);
-            return Ok(await authRepository.GetTokenAsync(user));
-        }
-        catch (Exception ex)
-        {
-            return new ResponseManager().ReturnResponse(ex);
-        }
+        var result = await sender.Send(command);
+        return Ok(result);
     }
 
     [HttpPost("refresh")]
     [AllowAnonymous]
-    public async Task<IActionResult> RefreshToken(TokenDto tokenDto)
+    public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenCommand command)
     {
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState);
-        
-        try
-        {
-            var response = await authRepository.RefreshTokenAsync(tokenDto);
-            return Ok(response);
-        }
-        catch (Exception ex)
-        {
-            return new ResponseManager().ReturnResponse(ex);
-        }
+        var result = await sender.Send(command);
+        return Ok(result);
     }
 }

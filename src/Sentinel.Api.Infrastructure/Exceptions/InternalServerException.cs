@@ -1,6 +1,3 @@
-﻿namespace Sentinel.Api.Infrastructure.Exceptions
-{
-    public class InternalServerException : Exception
-    {
-    }
-}
+﻿namespace Sentinel.Api.Infrastructure.Exceptions;
+
+public class InternalServerException(string message) : DomainException(message);
