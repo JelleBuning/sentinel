@@ -14,12 +14,12 @@ public class UpdateSoftwareInformationTests
         
         var updateDto = new SoftwareInformationDto
         {
-            Software = new List<SoftwareDto>
-            {
+            Software =
+            [
                 new() { Name = "Google Chrome" },
                 new() { Name = "Mozilla Firefox" },
                 new() { Name = "Visual Studio Code" }
-            }
+            ]
         };
         var device = scope.Organisation.Devices.Single();
         
@@ -35,12 +35,12 @@ public class UpdateSoftwareInformationTests
         
         var updateDto = new SoftwareInformationDto
         {
-            Software = new List<SoftwareDto>
-            {
+            Software =
+            [
                 new() { Name = "Google Chrome" },
                 new() { Name = "Mozilla Firefox" },
                 new() { Name = "Visual Studio Code" }
-            }
+            ]
         };
         
         var result = await scope.Client.PutAsync("/devices/1/software", updateDto);

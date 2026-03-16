@@ -13,7 +13,7 @@ public sealed class TestScope : IAsyncDisposable
     private readonly ApiFixture _fixture;
     private Guid? _organisationHash = null;
     
-    public HttpClient Client { get; set; }
+    public HttpClient Client { get; private set; }
     public AppDbContext DbContext => _fixture.GetDbContext();
     public ApiFixture Fixture => _fixture;
      
@@ -83,58 +83,42 @@ public static class HttpClientAuthExtensions
     {
         public async Task<SignInUserResponse> AuthenticateUserAsync()
         {
-            try
+            var signInUserResponse = await client.SignInUserAsync();
+            var totp = new Totp(Base32Encoding.ToBytes(signInUserResponse.TwoFactorToken), step: 30,
+                mode: OtpHashMode.Sha1, totpSize: 6);
+        
+            var verifyUserDto = new VerifyUserDto()
             {
-                var signInUserResponse = await client.SignInUserAsync();
-                var totp = new Totp(Base32Encoding.ToBytes(signInUserResponse.TwoFactorToken), step: 30,
-                    mode: OtpHashMode.Sha1, totpSize: 6);
-            
-                var verifyUserDto = new VerifyUserDto()
-                {
-                    UserId = signInUserResponse.UserId,
-                    AuthenticityToken = signInUserResponse.AuthenticityToken,
-                    OtpAttempt = totp.ComputeTotp(),
-                };
-            
-                var verificationResult = await client.PostAsync("/auth/users/verify", verifyUserDto);
-                var userTokenResponse = await verificationResult.Content.DeserializeAsync<TokenDto>() 
-                    ?? throw new Exception("verification result was null");
-                    
-                client.DefaultRequestHeaders.Authorization =
-                    new AuthenticationHeaderValue("Bearer", $"{userTokenResponse.AccessToken}");
-                    
-                return signInUserResponse;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                return null!;
-            }
+                UserId = signInUserResponse.UserId,
+                AuthenticityToken = signInUserResponse.AuthenticityToken,
+                OtpAttempt = totp.ComputeTotp(),
+            };
+        
+            var verificationResult = await client.PostAsync("/auth/users/verify", verifyUserDto);
+            var userTokenResponse = await verificationResult.Content.DeserializeAsync<TokenDto>() 
+                ?? throw new Exception("verification result was null");
+                
+            client.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue("Bearer", $"{userTokenResponse.AccessToken}");
+                
+            return signInUserResponse;
         }
 
         public async Task<DeviceTokenResponse> RegisterDeviceAsync(Guid organisationHash)
         {
-            try
+            var verificationResult = await client.PostAsync("/devices/register", new RegisterDeviceDto
             {
-                var verificationResult = await client.PostAsync("/devices/register", new RegisterDeviceDto
-                {
-                    Name = "John Doe",
-                    OrganisationHash = organisationHash,
-                });
+                Name = "John Doe",
+                OrganisationHash = organisationHash,
+            });
+            
+            var deviceTokenResponse = await verificationResult.Content.DeserializeAsync<DeviceTokenResponse>() 
+                ?? throw new Exception("verification result was null");
                 
-                var deviceTokenResponse = await verificationResult.Content.DeserializeAsync<DeviceTokenResponse>() 
-                    ?? throw new Exception("verification result was null");
-                    
-                client.DefaultRequestHeaders.Authorization = 
-                    new AuthenticationHeaderValue("Bearer", $"{deviceTokenResponse.AccessToken}");
-                    
-                return deviceTokenResponse;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                return null!;
-            }
+            client.DefaultRequestHeaders.Authorization = 
+                new AuthenticationHeaderValue("Bearer", $"{deviceTokenResponse.AccessToken}");
+                
+            return deviceTokenResponse;
         }
 
         private async Task<SignInUserResponse> SignInUserAsync()

@@ -11,8 +11,8 @@ public static class ApiFixtureExtensions
     {
         public AppDbContext GetDbContext()
         {
-            var provider = fixture.Services.CreateScope().ServiceProvider;
-            var dbContext = provider.GetRequiredService<AppDbContext>();
+            using var scope = fixture.Services.CreateScope();
+            var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
             dbContext.Database.EnsureCreated();
             return dbContext;
         }

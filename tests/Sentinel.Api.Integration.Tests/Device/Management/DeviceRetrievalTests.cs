@@ -44,8 +44,8 @@ public class DeviceRetrievalTests
         await scope.Fixture.AddDeviceAsync(unauthorizedDevice);
 
         var result = await scope.Client.GetAsync("/devices");
-        var devices = await result.ShouldDeserializeTo<GetDevicesResponse>();
         result.ShouldBeOk();
+        var devices = await result.ShouldDeserializeTo<GetDevicesResponse>();
         Assert.That(devices.Devices.Count, Is.EqualTo(1));
         Assert.That(devices.Devices.Any(d => d.Name == authorizedDevice.Name), Is.True);
         Assert.That(devices.Devices.Any(d => d.Name == unauthorizedDevice.Name), Is.False);

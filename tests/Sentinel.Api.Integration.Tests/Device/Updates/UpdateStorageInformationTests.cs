@@ -14,8 +14,8 @@ public class UpdateStorageInformationTests
         
         var updateDto = new StorageInformationDto
         {
-            Disks = new List<DiskInformationDto>
-            {
+            Disks =
+            [
                 new()
                 {
                     Name = "C:",
@@ -23,7 +23,7 @@ public class UpdateStorageInformationTests
                     Used = 250.5,
                     Size = 500.0
                 }
-            }
+            ]
         };
         var device = scope.DbContext.Devices.Single();
         
@@ -39,8 +39,8 @@ public class UpdateStorageInformationTests
         
         var updateDto = new StorageInformationDto
         {
-            Disks = new List<DiskInformationDto>
-            {
+            Disks =
+            [
                 new()
                 {
                     Name = "C:",
@@ -48,7 +48,7 @@ public class UpdateStorageInformationTests
                     Used = 250.5,
                     Size = 500.0
                 }
-            }
+            ]
         };
         
         var result = await scope.Client.PutAsync("/devices/1/storage", updateDto);

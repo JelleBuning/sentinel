@@ -20,7 +20,7 @@ public class PingTaskTests
     [Test]
     public async Task UnAuthorized_TaskExecution_ShouldReturnUnauthorized()
     {
-        var scope = new TestScope();
+        await using var scope = new TestScope();
         var result = await scope.Client.PostAsync($"/devices/1/ping");
         result.ShouldBeUnauthorized();
     }
