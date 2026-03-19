@@ -4,5 +4,5 @@ namespace Sentinel.WorkerService.Core.DeviceInformation.Interfaces;
 
 public interface IStorageInformationRetriever
 {
-    public StorageInformation Retrieve();
+    public StorageInformationDto Retrieve();
 }

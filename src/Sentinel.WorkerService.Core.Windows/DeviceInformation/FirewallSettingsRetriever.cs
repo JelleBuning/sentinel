@@ -7,14 +7,14 @@ namespace Sentinel.WorkerService.Core.Windows.DeviceInformation;
 #pragma warning disable CA1416
 public class FirewallSettingsRetriever : IFirewallSettingsRetriever
 {
-    public FirewallSettings Retrieve()
+    public FirewallSettingsDto Retrieve()
     {
         const string firewallProfileScope = @"\\.\root\StandardCimv2";
         const string firewallProfileKey = "MSFT_NetFirewallProfile";
         using var firewallObjectSearcher = new ManagementObjectSearcher(firewallProfileScope, "SELECT * FROM " + firewallProfileKey);
         var netFirewallProfiles = firewallObjectSearcher.Get().Cast<ManagementBaseObject>().ToList();
 
-        var firewallSettings = new FirewallSettings()
+        var firewallSettings = new FirewallSettingsDto()
         {
             DomainFirewallEnabled = netFirewallProfiles.Single(x => x["Name"]?.ToString() == "Domain")["Enabled"]?.ToString() == "1",
             PrivateFirewallEnabled = netFirewallProfiles.Single(x => x["Name"]?.ToString() == "Private")["Enabled"]?.ToString() == "1",

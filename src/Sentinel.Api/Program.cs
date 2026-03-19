@@ -4,6 +4,7 @@ using Sentinel.Api;
 using Sentinel.Api.Application;
 using Sentinel.Api.Extensions;
 using Sentinel.Api.Infrastructure;
+using Sentinel.Api.Infrastructure.Middleware;
 using Sentinel.Api.Infrastructure.Persistence;
 using Sentinel.Api.Infrastructure.SignalR;
 using Serilog;
@@ -20,6 +21,7 @@ try
     
     Log.Information("Starting host");
     var app = builder.Build();
+    app.UseMiddleware<ExceptionHandlingMiddleware>();
     if (app.Environment.IsDevelopment())
     {
         app.MapOpenApi();
@@ -62,5 +64,5 @@ finally
 
 namespace Sentinel.Api
 {
-    public class Program;
+    public abstract class Program;
 }

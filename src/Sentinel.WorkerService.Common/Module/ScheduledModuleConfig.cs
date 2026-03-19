@@ -1,9 +1,8 @@
 ﻿using Sentinel.WorkerService.Common.Module.Interfaces;
 
-namespace Sentinel.WorkerService.Common.Module
+namespace Sentinel.WorkerService.Common.Module;
+
+public class ScheduledModuleConfig<T> : IScheduledModuleConfig<T>
 {
-    public class ScheduledModuleConfig<T> : IScheduledModuleConfig<T>
-    {
-        public TimeSpan Interval { get; set; }
-    }
+    public TimeSpan Interval { get; set; }
 }

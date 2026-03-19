@@ -9,7 +9,7 @@ namespace Sentinel.WorkerService.Core.Windows.DeviceInformation;
 #pragma warning disable CA1416
 public class SecurityInformationRetriever(IFirewallSettingsRetriever firewallSettingsRetriever) : ISecurityInformationRetriever
 {
-    public SecurityInformation Retrieve()
+    public SecurityInformationDto Retrieve()
     {
         const string defenderScope = @"\\.\root\Microsoft\Windows\Defender";
         const string computerStatusKey = "MSFT_MpComputerStatus";
@@ -18,7 +18,7 @@ public class SecurityInformationRetriever(IFirewallSettingsRetriever firewallSet
 
         var x = ParseExact(managementBaseObject["QuickScanStartTime"]);
         
-        var securityInformation = new SecurityInformation
+        var securityInformation = new SecurityInformationDto
         {
             AntivirusEnabled = (bool)managementBaseObject["AntiVirusEnabled"],
             LastAntivirusUpdate = ParseExact(managementBaseObject["AntivirusSignatureLastUpdated"]),
@@ -28,13 +28,13 @@ public class SecurityInformationRetriever(IFirewallSettingsRetriever firewallSet
             TamperProtectionEnabled = (bool)managementBaseObject["IsTamperProtected"],
             AntispywareEnabled = (bool)managementBaseObject["AntiSpywareEnabled"],
             IsVirtualMachine = (bool)managementBaseObject["IsVirtualMachine"],
-            LastSecurityScan = new LastSecurityScan
+            LastSecurityScanDto = new LastSecurityScanDto
             {
                 // TODO: fix, cant find the properties
                 // LastScan = ParseExact(managementBaseObject["QuickScanStartTime"]),
                 // Duration = ParseExact(managementBaseObject["QuickScanEndTime"]) - ParseExact(managementBaseObject["QuickScanStartTime"]) 
             },
-            FirewallSettings = firewallSettingsRetriever.Retrieve()
+            FirewallSettingsDto = firewallSettingsRetriever.Retrieve()
         };
         
         return securityInformation;

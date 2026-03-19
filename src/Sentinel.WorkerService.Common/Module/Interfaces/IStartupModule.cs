@@ -1,7 +1,6 @@
-﻿namespace Sentinel.WorkerService.Common.Module.Interfaces
+﻿namespace Sentinel.WorkerService.Common.Module.Interfaces;
+
+public interface IStartupModule : IModule
 {
-    public interface IStartupModule : IModule
-    {
-        public Task Execute(CancellationToken cancellationToken);
-    }
+    public Task Execute(CancellationToken cancellationToken);
 }

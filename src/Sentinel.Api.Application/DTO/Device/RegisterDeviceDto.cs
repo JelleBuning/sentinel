@@ -1,8 +1,7 @@
-﻿namespace Sentinel.Api.Application.DTO.Device
+﻿namespace Sentinel.Api.Application.DTO.Device;
+
+public class RegisterDeviceDto
 {
-    public class RegisterDeviceDto
-    {
-        public required Guid OrganisationHash { get; set; }
-        public required string Name { get; set; }
-    }
+    public required Guid OrganisationHash { get; set; }
+    public required string Name { get; set; }
 }

@@ -21,10 +21,10 @@ public class AuthRepository(AppDbContext dbContext, IConfiguration configuration
     public async Task<SignInUserResponse> AuthenticateAsync(SignInUserDto user)
     {
         var currentUser = await dbContext.Users.FirstOrDefaultAsync(x => x.Email.ToLower().Equals(user.Email.ToLower()));
-        if (currentUser == null) throw new Exception("Invalid login credentials", new UnauthorizedException());
+        if (currentUser == null) throw new UnauthorizedException("Invalid login credentials");
         
         var passwordValid = BCrypt.Net.BCrypt.Verify(user.Password, currentUser.Password);
-        if (!passwordValid) throw new Exception("Invalid login credentials", new UnauthorizedException());
+        if (!passwordValid) throw new UnauthorizedException("Invalid login credentials");
             
         var claims = new List<Claim>
         {
@@ -67,22 +67,22 @@ public class AuthRepository(AppDbContext dbContext, IConfiguration configuration
         }
         catch
         {
-            throw new Exception($"Failed to create tokens", new InternalServerException());
+            throw new InternalServerException($"Failed to create tokens");
         }
     }
 
     public async Task<User> VerifyTotpAsync(VerifyUserDto verifyUserDto)
     {
         var user = await dbContext.Users.FirstOrDefaultAsync(x => x.Id == verifyUserDto.UserId) ??
-                   throw new Exception($"Invalid user id", new BadRequestException());
+                   throw new BadRequestException($"Invalid user id");
         if (user.AuthenticityToken != verifyUserDto.AuthenticityToken)
-            throw new Exception($"Invalid authenticity token", new UnauthorizedException());
+            throw new UnauthorizedException($"Invalid authenticity token");
         // TODO: check if token is not expired
 
         var totp = new Totp(Base32Encoding.ToBytes(user.TwoFactorToken), step: 30, mode: OtpHashMode.Sha1, totpSize: 6);
         var valid = totp.VerifyTotp(verifyUserDto.OtpAttempt, out var _,
             window: VerificationWindow.RfcSpecifiedNetworkDelay);
-        if (!valid) throw new Exception($"Invalid authenticator code", new UnauthorizedException());
+        if (!valid) throw new UnauthorizedException($"Invalid authenticator code");
 
         user.LastVerified = DateTime.Now;
         await dbContext.SaveChangesAsync();
@@ -92,8 +92,8 @@ public class AuthRepository(AppDbContext dbContext, IConfiguration configuration
     public async Task<TokenDto> RefreshTokenAsync(TokenDto tokenDto)
     {
         var principal = GetPrincipalFromExpiredToken(tokenDto.AccessToken);
-        var claimId = principal.Claims.FirstOrDefault(c => c.Type == "Id")!.Value;
-        var role = principal.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)!.Value;
+        var claimId = principal.Claims.SingleOrDefault(c => c.Type == "Id")!.Value;
+        var role = principal.Claims.SingleOrDefault(c => c.Type == ClaimTypes.Role)!.Value;
         
         var newAccessToken = GenerateAccessToken(principal.Claims);
         var newRefreshToken = GenerateRefreshToken();
@@ -102,10 +102,10 @@ public class AuthRepository(AppDbContext dbContext, IConfiguration configuration
         {
             case "Admin":
             case "User":
-                var user = dbContext.Users.SingleOrDefault(x => x.Id.ToString() == principal.Claims.FirstOrDefault(c => c.Type == "Id")!.Value);
+                var user = dbContext.Users.SingleOrDefault(x => x.Id.ToString() == claimId);
                 if (user == null || user.RefreshToken != tokenDto.RefreshToken || user.RefreshTokenExpiryTime <= DateTime.Now)
                 {
-                    throw new Exception("Invalid refresh token", new BadRequestException());
+                    throw new BadRequestException("Invalid refresh token");
                 }
                 user.RefreshToken = newRefreshToken;
                 break;
@@ -113,7 +113,7 @@ public class AuthRepository(AppDbContext dbContext, IConfiguration configuration
                 var device = dbContext.Devices.SingleOrDefault(x => x.Id.ToString() == claimId);
                 if (device == null || device.RefreshToken != tokenDto.RefreshToken)
                 {
-                    throw new Exception("Invalid refresh token", new BadRequestException());
+                    throw new BadRequestException("Invalid refresh token");
                 }
                 device.RefreshToken = newRefreshToken;
                 break;
