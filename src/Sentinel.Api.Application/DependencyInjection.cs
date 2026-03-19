@@ -20,7 +20,7 @@ public static class DependencyInjection
             return services;
         }
 
-        private void AddMediatorServices(Assembly assembly)
+        private void AddMediatorServices(Assembly _)
         {
             services.AddMediator(options =>
             {
