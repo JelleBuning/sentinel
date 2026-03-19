@@ -1,5 +1,6 @@
 using System.Net.Http.Headers;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using OtpNet;
 using Sentinel.Api.Application.DTO.Device;
 using Sentinel.Api.Application.DTO.Token;
@@ -11,10 +12,11 @@ namespace Sentinel.Api.Integration.Tests.Common;
 public sealed class TestScope : IAsyncDisposable
 {
     private readonly ApiFixture _fixture;
+    private readonly IServiceScope _scope;
     private Guid? _organisationHash = null;
     
     public HttpClient Client { get; private set; }
-    public AppDbContext DbContext => _fixture.GetDbContext();
+    public AppDbContext DbContext { get; }
     public ApiFixture Fixture => _fixture;
      
     public Domain.Entities.Organisation Organisation => DbContext.Organisations
@@ -27,6 +29,9 @@ public sealed class TestScope : IAsyncDisposable
     public TestScope()
     {
         _fixture = new ApiFixture();
+        _scope = _fixture.Services.CreateScope();
+        DbContext = _scope.ServiceProvider.GetRequiredService<AppDbContext>();
+        DbContext.Database.EnsureCreated();
         Client = _fixture.CreateClient();
     }
     
@@ -72,8 +77,8 @@ public sealed class TestScope : IAsyncDisposable
     
     public async ValueTask DisposeAsync()
     {
+        _scope.Dispose();
         await _fixture.DisposeAsync();
-        
     }
 }
 

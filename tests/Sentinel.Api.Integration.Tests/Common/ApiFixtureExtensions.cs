@@ -9,14 +9,6 @@ public static class ApiFixtureExtensions
 {
     extension(ApiFixture fixture)
     {
-        public AppDbContext GetDbContext()
-        {
-            using var scope = fixture.Services.CreateScope();
-            var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-            dbContext.Database.EnsureCreated();
-            return dbContext;
-        }
-
         public async Task<(HttpClient client, SignInUserResponse user)> CreateAuthenticatedUserAsync()
         {
             var client = fixture.CreateClient();
@@ -33,8 +25,8 @@ public static class ApiFixtureExtensions
 
         public async Task<Domain.Entities.Organisation> AddOrganisationAsync(Guid organisationHash)
         {
-            var provider = fixture.Services.CreateScope().ServiceProvider;
-            await using var dbContext = provider.GetRequiredService<AppDbContext>();
+            using var scope = fixture.Services.CreateScope();
+            await using var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
             await dbContext.Database.EnsureCreatedAsync();
 
             var organisation = new Domain.Entities.Organisation
@@ -48,8 +40,8 @@ public static class ApiFixtureExtensions
 
         public async Task AddDeviceAsync(Domain.Entities.Device device)
         {
-            var provider = fixture.Services.CreateScope().ServiceProvider;
-            await using var dbContext = provider.GetRequiredService<AppDbContext>();
+            using var scope = fixture.Services.CreateScope();
+            await using var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
             await dbContext.Database.EnsureCreatedAsync();
         
             dbContext.Devices.Add(device);
