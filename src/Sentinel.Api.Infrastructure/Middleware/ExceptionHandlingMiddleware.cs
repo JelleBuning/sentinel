@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Sentinel.Api.Application.Exceptions;
 using Sentinel.Api.Infrastructure.Exceptions;
 namespace Sentinel.Api.Infrastructure.Middleware;

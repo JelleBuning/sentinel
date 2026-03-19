@@ -8,7 +8,6 @@ using Sentinel.Api.Application.Commands.Devices.Update.SecurityInformation;
 using Sentinel.Api.Application.Commands.Devices.Update.SoftwareInformation;
 using Sentinel.Api.Application.Commands.Devices.Update.StorageInformation;
 using Sentinel.Api.Application.DTO.Device;
-using Sentinel.Api.Extensions;
 using Sentinel.Common.DTO.Device;
 using Sentinel.Common.DTO.Device.Information;
 

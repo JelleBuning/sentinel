@@ -1,4 +1,3 @@
-using FluentValidation;
 using Mediator;
 using Microsoft.Extensions.Logging;
 using Sentinel.Api.Application.Exceptions;

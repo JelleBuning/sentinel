@@ -9,8 +9,6 @@ using Microsoft.IdentityModel.Tokens;
 using Sentinel.Api.Application.Interfaces;
 using Sentinel.Api.Application.Services;
 using Sentinel.Api.Application.Services.Interfaces;
-using Sentinel.Api.Infrastructure.Exceptions;
-using Sentinel.Api.Infrastructure.Middleware;
 using Sentinel.Api.Infrastructure.Persistence;
 using Sentinel.Api.Infrastructure.Repositories;
 using Serilog;
