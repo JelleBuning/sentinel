@@ -8,7 +8,7 @@ namespace Sentinel.WorkerService.Common.Consumer;
 
 public abstract class ConsumerBase<TMessage, TResponse> : IHostedService, IModule
 {
-    public abstract Task<TResponse> OnMessageReceived(TMessage context);
+    protected abstract Task<TResponse> OnMessageReceived(TMessage context);
 
     protected ConsumerBase(IConsumerConfig<TMessage> config, ILogger<TMessage> logger)
     {
@@ -17,7 +17,7 @@ public abstract class ConsumerBase<TMessage, TResponse> : IHostedService, IModul
         
         config.Connection.On(messageName, (TMessage message) =>
         {
-            logger.LogInformation($"[*] {messageName} received");
+            logger.LogInformation("[*] {MessageName} received", messageName);
             OnMessageReceived(message);
         });
     }

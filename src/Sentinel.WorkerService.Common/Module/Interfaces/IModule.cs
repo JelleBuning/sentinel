@@ -1,4 +1,3 @@
-﻿namespace Sentinel.WorkerService.Common.Module.Interfaces
-{
-    public interface IModule;
-}
+﻿namespace Sentinel.WorkerService.Common.Module.Interfaces;
+
+public interface IModule;

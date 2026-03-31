@@ -4,5 +4,5 @@ namespace Sentinel.WorkerService.Core.Windows.DeviceInformation.Interfaces;
 
 public interface IFirewallSettingsRetriever
 {
-    public FirewallSettings Retrieve();
+    public FirewallSettingsDto Retrieve();
 }

@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
-using Sentinel.Common.Messages;
+using Sentinel.Common.SignalR;
 using Sentinel.WorkerService.Common.Consumer;
 using Sentinel.WorkerService.Common.Consumer.Interfaces;
 
@@ -7,7 +7,7 @@ namespace Sentinel.WorkerService.Core.SecurityScan;
 
 public class SecurityScanModule(IConsumerConfig<SecurityScanMessage> config, ILogger<SecurityScanMessage> logger, ISecurityScanner scanner) : ConsumerBase<SecurityScanMessage, bool>(config, logger)
 {
-    public override async Task<bool> OnMessageReceived(SecurityScanMessage context)
+    protected override async Task<bool> OnMessageReceived(SecurityScanMessage context)
     {
         try
         {

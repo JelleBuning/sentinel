@@ -4,5 +4,5 @@ namespace Sentinel.WorkerService.Common.Api.Interfaces;
 
 public interface IAuthenticationHandler
 {
-    public Task<DeviceRegistrationResponse> EnsureAuthenticated(Guid organisationHash, string name, CancellationToken cancellationToken);
+    public Task<DeviceRegistrationResponse> EnsureAuthenticatedAsync(Guid organisationHash, string name, CancellationToken cancellationToken);
 }
