@@ -67,7 +67,7 @@ jobs:
         run: dotnet publish ./src/Sentinel.Api/Sentinel.Api.csproj --configuration Release --output ./publish/linux-x64 --self-contained true --runtime linux-x64
 
       - name: Release files
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           files: |
             ./publish/linux-x64/Sentinel.Api
@@ -98,7 +98,7 @@ jobs:
 
       - name: Build and push image
         id: push
-        uses: docker/build-push-action@d08e5c354a6adb9ed34480a06d141179aa583294
+        uses: docker/build-push-action@bcafcacb16a39f128d818304e6c9c0c18556b85f
         with:
           context: .
           file: ./src/Sentinel.Api/Dockerfile
