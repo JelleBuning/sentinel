@@ -1,9 +1,9 @@
-name: Mycelium
+name: mycelium
 services:
-  Mycelium.api:
-    container_name: "Mycelium.api"
+  mycelium.api:
+    container_name: "mycelium.api"
     networks:
-      - Mycelium_network
+      - mycelium_network
     build:
       context: .
       dockerfile: Dockerfile
@@ -27,12 +27,12 @@ services:
       timeout: 3s
       retries: 10
       start_period: 10s
-    container_name: "Mycelium.db"
+    container_name: "mycelium.db"
     networks:
-      - Mycelium_network
+      - mycelium_network
     ports:
       - "1433:1433"
 
 networks:
-  Mycelium_network:
+  mycelium_network:
     driver: bridge
