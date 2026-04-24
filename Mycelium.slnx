@@ -1,0 +1,18 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Mycelium.Api.Application/Mycelium.Api.Application.csproj" />
+    <Project Path="src/Mycelium.Api.Domain/Mycelium.Api.Domain.csproj" />
+    <Project Path="src/Mycelium.Api.Infrastructure/Mycelium.Api.Infrastructure.csproj" />
+    <Project Path="src/Mycelium.Api/Mycelium.Api.csproj" />
+    <Project Path="src/Mycelium.Common/Mycelium.Common.csproj" />
+    <Project Path="src/Mycelium.WorkerService.Common/Mycelium.WorkerService.Common.csproj" />
+    <Project Path="src/Mycelium.WorkerService.Core.Linux/Mycelium.WorkerService.Core.Linux.csproj" />
+    <Project Path="src/Mycelium.WorkerService.Core.Windows/Mycelium.WorkerService.Core.Windows.csproj" />
+    <Project Path="src/Mycelium.WorkerService.Core/Mycelium.WorkerService.Core.csproj" />
+    <Project Path="src/Mycelium.WorkerService.RemoteAccess/Mycelium.WorkerService.RemoteAccess.csproj" />
+    <Project Path="src/Mycelium.WorkerService/Mycelium.WorkerService.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Mycelium.Api.Integration.Tests/Mycelium.Api.Integration.Tests.csproj" />
+  </Folder>
+</Solution>

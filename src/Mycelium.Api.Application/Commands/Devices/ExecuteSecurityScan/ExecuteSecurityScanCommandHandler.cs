@@ -1,0 +1,14 @@
+using Mediator;
+using Mycelium.Api.Application.Interfaces;
+
+namespace Mycelium.Api.Application.Commands.Devices.ExecuteSecurityScan;
+
+public class ExecuteSecurityScanCommandHandler(IDeviceMessenger deviceMessenger)
+    : IRequestHandler<ExecuteSecurityScanCommand>
+{
+    public async ValueTask<Unit> Handle(ExecuteSecurityScanCommand request, CancellationToken cancellationToken)
+    {
+        await deviceMessenger.SendSecurityScanRequestAsync(request.DeviceId, cancellationToken);
+        return Unit.Value;
+    }
+}

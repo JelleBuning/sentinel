@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>Mycelium.WorkerService.Core.Linux</RootNamespace>
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Mycelium.WorkerService.Core\Mycelium.WorkerService.Core.csproj" />
+        <ProjectReference Include="..\Mycelium.WorkerService.RemoteAccess\Mycelium.WorkerService.RemoteAccess.csproj" />
+    </ItemGroup>
+
+</Project>

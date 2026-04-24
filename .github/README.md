@@ -21,14 +21,14 @@
 
 <div align="center">
 
-<h1 align="center">sentinel</h3>
+<h1 align="center">Mycelium</h3>
 
   <p align="center">
     Remote Monitoring and Management (RMM) Software.
     <br />
-    <a href="https://JelleBuning/sentinel/not_found">Demo</a>
+    <a href="https://JelleBuning/Mycelium/not_found">Demo</a>
     ·
-    <a href="https://github.com/JelleBuning/sentinel/wiki">Explore the docs</a>
+    <a href="https://github.com/JelleBuning/Mycelium/wiki">Explore the docs</a>
   </p>
 </div>
 
@@ -61,9 +61,9 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Sentinel is a powerful, scalable, and secure Remote Monitoring and Management (RMM) platform designed to help IT professionals and Managed Service Providers (MSPs) efficiently manage, monitor, and secure client devices and networks from a single dashboard.
+Mycelium is a powerful, scalable, and secure Remote Monitoring and Management (RMM) platform designed to help IT professionals and Managed Service Providers (MSPs) efficiently manage, monitor, and secure client devices and networks from a single dashboard.
 
-With Sentinel, you'll gain full visibility and control over endpoints, proactive alerts, and automation tools that simplify maintenance tasks and increase operational efficiency.
+With Mycelium, you'll gain full visibility and control over endpoints, proactive alerts, and automation tools that simplify maintenance tasks and increase operational efficiency.
 
 
 ### Features
@@ -97,11 +97,11 @@ This installation method utilizes Docker Compose for a streamlined setup. Ensure
 
     ```yaml
     version: '3.4'
-    name: sentinel
+    name: Mycelium
     services:
-      sentinel-api:
-        container_name: "sentinel-api"
-        image: ghcr.io/jellebuning/sentinel-api
+      Mycelium-api:
+        container_name: "Mycelium-api"
+        image: ghcr.io/jellebuning/Mycelium-api
         ports:
           - "7000:8080"
         environment:
@@ -154,13 +154,13 @@ Distributed under the GNU Affero General Public License v3.0 License. See `LICEN
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/JelleBuning/sentinel.svg?style=for-the-badge
-[contributors-url]: https://github.com/JelleBuning/sentinel/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/JelleBuning/sentinel.svg?style=for-the-badge
-[forks-url]: https://github.com/JelleBuning/sentinel/network/members
-[stars-shield]: https://img.shields.io/github/stars/JelleBuning/sentinel.svg?style=for-the-badge
-[stars-url]: https://github.com/JelleBuning/sentinel/stargazers
-[issues-shield]: https://img.shields.io/github/issues/JelleBuning/sentinel.svg?style=for-the-badge
-[issues-url]: https://github.com/JelleBuning/sentinel/issues
-[license-shield]: https://img.shields.io/github/license/JelleBuning/sentinel.svg?style=for-the-badge
-[license-url]: https://github.com/JelleBuning/sentinel/blob/master/LICENSE
+[contributors-shield]: https://img.shields.io/github/contributors/JelleBuning/Mycelium.svg?style=for-the-badge
+[contributors-url]: https://github.com/JelleBuning/Mycelium/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/JelleBuning/Mycelium.svg?style=for-the-badge
+[forks-url]: https://github.com/JelleBuning/Mycelium/network/members
+[stars-shield]: https://img.shields.io/github/stars/JelleBuning/Mycelium.svg?style=for-the-badge
+[stars-url]: https://github.com/JelleBuning/Mycelium/stargazers
+[issues-shield]: https://img.shields.io/github/issues/JelleBuning/Mycelium.svg?style=for-the-badge
+[issues-url]: https://github.com/JelleBuning/Mycelium/issues
+[license-shield]: https://img.shields.io/github/license/JelleBuning/Mycelium.svg?style=for-the-badge
+[license-url]: https://github.com/JelleBuning/Mycelium/blob/master/LICENSE
