@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-Mycelium.WorkerService-f5d58aa8-4363-49bb-b403-7e4ed6f56b92</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting.Systemd"/>
+    <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices"/>
+    <PackageReference Include="Serilog.Extensions.Hosting"/>
+    <PackageReference Include="System.Management.Automation"/>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Mycelium.Common\Mycelium.Common.csproj" />
+    <ProjectReference Include="..\Mycelium.WorkerService.Common\Mycelium.WorkerService.Common.csproj" />
+    <ProjectReference Include="..\Mycelium.WorkerService.Core.Linux\Mycelium.WorkerService.Core.Linux.csproj" />
+    <ProjectReference Include="..\Mycelium.WorkerService.Core.Windows\Mycelium.WorkerService.Core.Windows.csproj" />
+    <ProjectReference Include="..\Mycelium.WorkerService.RemoteAccess\Mycelium.WorkerService.RemoteAccess.csproj" />
+    <ProjectReference Include="..\Mycelium.WorkerService.Core\Mycelium.WorkerService.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="Licences.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+</Project>
