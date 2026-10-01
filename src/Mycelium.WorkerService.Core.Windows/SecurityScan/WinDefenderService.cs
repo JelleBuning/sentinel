@@ -1,4 +1,4 @@
-using System.Diagnostics;
+using Mycelium.WorkerService.Common.Helpers;
 using Mycelium.WorkerService.Core.SecurityScan;
 using Mycelium.WorkerService.Core.Windows.SecurityScan.Enums;
 
@@ -6,15 +6,24 @@ namespace Mycelium.WorkerService.Core.Windows.SecurityScan;
 
 public class WinDefenderService : ISecurityScanner
 {
+    private readonly IProcessRunner _processRunner;
     private bool _isDefenderAvailable;
     private readonly string? _defenderPath;
     private readonly SemaphoreSlim _lock = new(3); //limit to 3 concurrent checks at a time
 
-    public WinDefenderService()
+    public WinDefenderService(IProcessRunner processRunner)
     {
+        _processRunner = processRunner;
         _defenderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
             "Windows Defender", "MpCmdRun.exe");
         _isDefenderAvailable = File.Exists(_defenderPath);
+    }
+
+    internal WinDefenderService(IProcessRunner processRunner, string? defenderPath, bool isDefenderAvailable)
+    {
+        _processRunner = processRunner;
+        _defenderPath = defenderPath;
+        _isDefenderAvailable = isDefenderAvailable;
     }
 
     public async Task<bool> Scan(CancellationToken cancellationToken)
@@ -25,16 +34,12 @@ public class WinDefenderService : ISecurityScanner
 
         try
         {
-            using var process = Process.Start(_defenderPath, $"-Scan -ScanType {(int)ScanType.Quick}");
-            if (process == null)
-            {
-                _isDefenderAvailable = false; //disable future attempts
-                throw new InvalidOperationException("Failed to start MpCmdRun.exe");
-            }
+            using var handle = _processRunner.Start(_defenderPath, $"-Scan -ScanType {(int)ScanType.Quick}");
+            _ = Task.Run(handle.ReadToEnd, CancellationToken.None);
 
-            await process.WaitForExitAsync(cancellationToken)
+            await handle.WaitForExitAsync(cancellationToken)
                 .WaitAsync(TimeSpan.FromMilliseconds(2500), cancellationToken);
-            return process.ExitCode == 2;
+            return handle.ExitCode == 2;
         }
         finally
         {

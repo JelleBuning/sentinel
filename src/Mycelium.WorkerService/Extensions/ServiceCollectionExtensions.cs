@@ -46,7 +46,7 @@ public static class ServiceCollectionExtensions
             services
                 .AddScheduledTask<PingModule>(scheduleConfig => scheduleConfig.Interval = TimeSpan.FromMinutes(1))
                 .AddScheduledTask<DeviceInformationModule>(scheduleConfig => scheduleConfig.Interval = TimeSpan.FromMinutes(5))
-                .AddScheduledTask<StorageInformationModule>(scheduleConfig => scheduleConfig.Interval = TimeSpan.FromMinutes(10))
+                .AddScheduledTask<DiskInformationModule>(scheduleConfig => scheduleConfig.Interval = TimeSpan.FromMinutes(10))
                 .AddScheduledTask<SecurityInformationModule>(scheduleConfig => scheduleConfig.Interval = TimeSpan.FromMinutes(2.5))
                 .AddScheduledTask<SoftwareInformationModule>(scheduleConfig => scheduleConfig.Interval = TimeSpan.FromMinutes(30));
             return services;
@@ -97,7 +97,5 @@ public static class ServiceCollectionExtensions
 
             return services;
         }
-
-        public void Build() { }
     }
 }

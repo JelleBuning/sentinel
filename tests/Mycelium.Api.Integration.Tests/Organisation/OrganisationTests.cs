@@ -1,7 +1,7 @@
+using Mycelium.Api.IntegrationTests.Common;
 using NUnit.Framework;
-using Mycelium.Api.Integration.Tests.Common;
 
-namespace Mycelium.Api.Integration.Tests.Organisation;
+namespace Mycelium.Api.IntegrationTests.Organisation;
 
 public class OrganisationTests
 {

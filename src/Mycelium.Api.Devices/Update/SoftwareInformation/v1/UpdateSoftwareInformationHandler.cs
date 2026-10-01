@@ -28,7 +28,7 @@ public sealed class UpdateSoftwareInformationHandler(AppDbContext dbContext, IHt
             return Result.Failure(Error.NotFound("Device not found"));
         }
 
-        foreach (var updateSoftware in command.SoftwareInfo.Software)
+        foreach (var updateSoftware in command.Software)
         {
             var software = device.Software.FirstOrDefault(s => s.Name == updateSoftware.Name);
             if (software is null)

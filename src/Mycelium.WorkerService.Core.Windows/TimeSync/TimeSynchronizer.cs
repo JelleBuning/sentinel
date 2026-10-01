@@ -3,7 +3,7 @@ using Mycelium.WorkerService.Core.TimeSync;
 
 namespace Mycelium.WorkerService.Core.Windows.TimeSync;
 
-public class TimeSynchronizer : ITimeSynchronizer
+public class TimeSynchronizer(IProcessRunner processRunner) : ITimeSynchronizer
 {
     public Task Synchronize()
     {
@@ -14,7 +14,7 @@ public class TimeSynchronizer : ITimeSynchronizer
         psTimeScript += "w32tm /resync /force" + Environment.NewLine;
         psTimeScript += "Set-Service w32time -StartupType disabled" + Environment.NewLine;
 
-        var process = ProcessHelper.Start("C:\\windows\\system32\\windowspowershell\\v1.0\\powershell.exe", psTimeScript);
-        return process.WaitForExitAsync();
+        var handle = processRunner.Start("C:\\windows\\system32\\windowspowershell\\v1.0\\powershell.exe", psTimeScript);
+        return handle.WaitForExitAsync();
     }
 }

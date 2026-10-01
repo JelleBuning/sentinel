@@ -5,7 +5,7 @@ using Mycelium.Common.DTO.Device;
 using DeviceEntity = Mycelium.Api.EntityFramework.Entities.Device;
 using OrganisationEntity = Mycelium.Api.EntityFramework.Entities.Organisation;
 
-namespace Mycelium.Api.Integration.Tests.Common;
+namespace Mycelium.Api.IntegrationTests.Common;
 
 public static class ApiFixtureExtensions
 {

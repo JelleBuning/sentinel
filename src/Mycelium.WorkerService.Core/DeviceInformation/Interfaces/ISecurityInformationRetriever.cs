@@ -4,5 +4,5 @@ namespace Mycelium.WorkerService.Core.DeviceInformation.Interfaces;
 
 public interface ISecurityInformationRetriever
 {
-    public SecurityInformationDto Retrieve();
+    public SecurityDto Retrieve();
 }

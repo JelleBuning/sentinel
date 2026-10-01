@@ -1,3 +1,4 @@
+
 namespace Mycelium.Api.EntityFramework.Entities;
 
 public class DeviceDisk
@@ -7,4 +8,5 @@ public class DeviceDisk
     public bool IsOsDisk { get; set; }
     public double Used { get; set; }
     public double Size { get; set; }
+    public string? HealthStatus { get; set; }
 }

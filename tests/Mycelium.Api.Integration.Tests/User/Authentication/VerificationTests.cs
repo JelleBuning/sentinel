@@ -1,11 +1,11 @@
-using NUnit.Framework;
-using OtpNet;
 using Mycelium.Api.Auth.Dto;
 using Mycelium.Api.Auth.VerifyTotp.v1;
-using Mycelium.Api.Integration.Tests.Common;
+using Mycelium.Api.IntegrationTests.Common;
 using Mycelium.Api.Users.Register.v1;
+using NUnit.Framework;
+using OtpNet;
 
-namespace Mycelium.Api.Integration.Tests.User.Authentication;
+namespace Mycelium.Api.IntegrationTests.User.Authentication;
 
 public class VerificationTests
 {

@@ -1,3 +1,4 @@
+
 namespace Mycelium.Common.DTO.Device;
 
 public class DeviceTokenResponse

@@ -22,7 +22,7 @@
     <ProjectReference Include="..\Mycelium.WorkerService.Core\Mycelium.WorkerService.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Content Update="Licences.config">
+    <Content Update="Modules.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

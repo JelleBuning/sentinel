@@ -19,6 +19,18 @@ public static class LicenseManager
         var xmlDocument = new XmlDocument();
         xmlDocument.Load(fileName);
 
+        return ParseLicensedModules(xmlDocument);
+    }
+
+    internal static List<string> ParseLicensedModules(string xmlContent)
+    {
+        var xmlDocument = new XmlDocument();
+        xmlDocument.LoadXml(xmlContent);
+        return ParseLicensedModules(xmlDocument);
+    }
+
+    private static List<string> ParseLicensedModules(XmlDocument xmlDocument)
+    {
         var licenseNodes = xmlDocument.GetElementsByTagName("modules").Item(0)!.ChildNodes.Cast<XmlNode>().Where(x => x.Name == "module");
         return licenseNodes.Select(licenseNode => licenseNode.Attributes!["applicationKey"]!.Value).ToList();
     }

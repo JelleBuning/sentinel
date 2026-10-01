@@ -19,7 +19,7 @@ public sealed class UpdateDeviceInformationHandler(AppDbContext dbContext, IHttp
         }
 
         var device = await dbContext.Devices
-            .Include(d => d.DeviceDetails)
+            .Include(d => d.DeviceInformation)
             .FirstOrDefaultAsync(x => x.Id == command.DeviceId, cancellationToken);
 
         if (device is null)
@@ -29,14 +29,14 @@ public sealed class UpdateDeviceInformationHandler(AppDbContext dbContext, IHttp
 
         var info = command.DeviceInfo;
         device.Name = info.DeviceName ?? device.Name;
-        device.DeviceDetails.OsName = info.OsName;
-        device.DeviceDetails.OsVersion = info.OsVersion;
-        device.DeviceDetails.Version = info.Version;
-        device.DeviceDetails.ProductName = info.ProductName;
-        device.DeviceDetails.Processor = info.Processor;
-        device.DeviceDetails.InstalledRam = info.InstalledRam;
-        device.DeviceDetails.GraphicsCard = info.GraphicsCard;
-        device.DeviceDetails.Manufacturer = info.Manufacturer;
+        device.DeviceInformation.OsName = info.OsName;
+        device.DeviceInformation.OsVersion = info.OsVersion;
+        device.DeviceInformation.Version = info.Version;
+        device.DeviceInformation.ProductName = info.ProductName;
+        device.DeviceInformation.Processor = info.Processor;
+        device.DeviceInformation.InstalledRam = info.InstalledRam;
+        device.DeviceInformation.GraphicsCard = info.GraphicsCard;
+        device.DeviceInformation.Manufacturer = info.Manufacturer;
 
         await dbContext.SaveChangesAsync(cancellationToken);
 

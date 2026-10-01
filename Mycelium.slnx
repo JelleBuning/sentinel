@@ -19,6 +19,17 @@
     <Project Path="src/Mycelium.WorkerService/Mycelium.WorkerService.csproj" />
   </Folder>
   <Folder Name="/tests/">
-    <Project Path="tests/Mycelium.Api.Integration.Tests/Mycelium.Api.Integration.Tests.csproj" />
+    <Project Path="tests/Mycelium.Api.Core.UnitTests/Mycelium.Api.Core.UnitTests.csproj" />
+    <Project Path="tests/Mycelium.Api.Auth.UnitTests/Mycelium.Api.Auth.UnitTests.csproj" />
+    <Project Path="tests/Mycelium.Api.Devices.UnitTests/Mycelium.Api.Devices.UnitTests.csproj" />
+    <Project Path="tests/Mycelium.Api.Integration.Tests/Mycelium.Api.IntegrationTests.csproj" />
+    <Project Path="tests/Mycelium.Api.Organisations.UnitTests/Mycelium.Api.Organisations.UnitTests.csproj" />
+    <Project Path="tests/Mycelium.Api.Users.UnitTests/Mycelium.Api.Users.UnitTests.csproj" />
+    <Project Path="tests/Mycelium.WorkerService.UnitTests/Mycelium.WorkerService.UnitTests.csproj" />
+    <Project Path="tests/Mycelium.WorkerService.Common.UnitTests/Mycelium.WorkerService.Common.UnitTests.csproj" />
+    <Project Path="tests/Mycelium.WorkerService.Core.UnitTests/Mycelium.WorkerService.Core.UnitTests.csproj" />
+    <Project Path="tests/Mycelium.WorkerService.Core.Windows.UnitTests/Mycelium.WorkerService.Core.Windows.UnitTests.csproj" />
+    <Project Path="tests/Mycelium.WorkerService.Core.Linux.UnitTests/Mycelium.WorkerService.Core.Linux.UnitTests.csproj" />
+    <Project Path="tests/Mycelium.WorkerService.RemoteAccess.UnitTests/Mycelium.WorkerService.RemoteAccess.UnitTests.csproj" />
   </Folder>
 </Solution>

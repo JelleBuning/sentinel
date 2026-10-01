@@ -13,7 +13,7 @@ public sealed class UpdateDeviceInformationEndpoint : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPut("/devices/{id}", async ([FromRoute] int id, [FromBody] DeviceInformationDto body, [FromServices] IMediator mediator, CancellationToken cancellationToken) =>
+        app.MapPut("/devices/{id}", async ([FromRoute] int id, [FromBody] InformationDto body, [FromServices] IMediator mediator, CancellationToken cancellationToken) =>
             {
                 var result = await mediator.Send(new UpdateDeviceInformationCommand(id, body), cancellationToken);
                 return result.ToHttpResult();

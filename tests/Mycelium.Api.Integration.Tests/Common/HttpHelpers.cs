@@ -2,7 +2,7 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 
-namespace Mycelium.Api.Integration.Tests.Common;
+namespace Mycelium.Api.IntegrationTests.Common;
 
 public static class HttpClientExtensions
 {

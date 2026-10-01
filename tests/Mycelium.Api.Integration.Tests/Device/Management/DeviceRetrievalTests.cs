@@ -1,9 +1,9 @@
+using Mycelium.Api.Devices.Get.All.v1;
+using Mycelium.Api.IntegrationTests.Common;
 using NUnit.Framework;
-using Mycelium.Api.Devices.GetAll.v1;
-using Mycelium.Api.Integration.Tests.Common;
 using DeviceEntity = Mycelium.Api.EntityFramework.Entities.Device;
 
-namespace Mycelium.Api.Integration.Tests.Device.Management;
+namespace Mycelium.Api.IntegrationTests.Device.Management;
 
 public class DeviceRetrievalTests
 {

@@ -1,3 +1,4 @@
+
 namespace Mycelium.Api.EntityFramework.Entities;
 
 public sealed class Organisation

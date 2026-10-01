@@ -1,3 +1,4 @@
+
 namespace Mycelium.Api.Organisations.GetAll.v1;
 
 public sealed class OrganisationDto

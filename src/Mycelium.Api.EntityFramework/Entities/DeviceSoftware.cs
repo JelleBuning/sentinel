@@ -1,3 +1,4 @@
+
 namespace Mycelium.Api.EntityFramework.Entities;
 
 public class DeviceSoftware

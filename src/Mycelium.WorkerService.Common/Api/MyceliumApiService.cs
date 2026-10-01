@@ -31,27 +31,27 @@ public class MyceliumApiService(HttpClient client, IConfiguration configuration,
         result.EnsureSuccessStatusCode();
     }
 
-    public async Task UpdateDeviceInformationAsync(DeviceInformationDto deviceInformationDto)
+    public async Task UpdateDeviceInformationAsync(InformationDto informationDto)
     {
-        var result = await client.PutAsync($"/api/v1/devices/{configuration["Id"]}", deviceInformationDto);
+        var result = await client.PutAsync($"/api/v1/devices/{configuration["Id"]}", informationDto);
         result.EnsureSuccessStatusCode();
     }
 
-    public async Task UpdateStorageInformationAsync(StorageInformationDto storageInformationDto)
+    public async Task UpdateDiskInformationAsync(List<DiskDto> disks)
     {
-        var result = await client.PutAsync($"/api/v1/devices/{configuration["Id"]}/storage", storageInformationDto);
+        var result = await client.PutAsync($"/api/v1/devices/{configuration["Id"]}/disks", disks);
         result.EnsureSuccessStatusCode();
     }
 
-    public async Task UpdateSecurityInformationAsync(SecurityInformationDto securityInformationDto)
+    public async Task UpdateSecurityInformationAsync(SecurityDto securityDto)
     {
-        var result = await client.PutAsync($"/api/v1/devices/{configuration["Id"]}/security", securityInformationDto);
+        var result = await client.PutAsync($"/api/v1/devices/{configuration["Id"]}/security", securityDto);
         result.EnsureSuccessStatusCode();
     }
 
-    public async Task UpdateSoftwareInformationAsync(SoftwareInformationDto softwareInformationDto)
+    public async Task UpdateSoftwareInformationAsync(List<SoftwareDto> software)
     {
-        var result = await client.PutAsync($"/api/v1/devices/{configuration["Id"]}/software", softwareInformationDto);
+        var result = await client.PutAsync($"/api/v1/devices/{configuration["Id"]}/software", software);
         result.EnsureSuccessStatusCode();
     }
 }

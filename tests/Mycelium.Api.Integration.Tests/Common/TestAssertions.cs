@@ -1,7 +1,7 @@
 using System.Net;
 using NUnit.Framework;
 
-namespace Mycelium.Api.Integration.Tests.Common;
+namespace Mycelium.Api.IntegrationTests.Common;
 
 public static class HttpResponseAssertions
 {

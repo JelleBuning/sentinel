@@ -4,5 +4,5 @@ namespace Mycelium.WorkerService.Core.DeviceInformation.Interfaces;
 
 public interface ISoftwareInformationRetriever
 {
-    public SoftwareInformationDto Retrieve();
+    public List<SoftwareDto> Retrieve();
 }

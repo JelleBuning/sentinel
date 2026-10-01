@@ -1,3 +1,4 @@
+
 namespace Mycelium.Api.EntityFramework.Entities;
 
 public class Device
@@ -9,7 +10,7 @@ public class Device
     public required string Name { get; set; }
     public string? RefreshToken { get; set; }
 
-    public DeviceDetails DeviceDetails { get; set; } = new();
+    public DeviceInformation DeviceInformation { get; set; } = new();
     public DeviceSecurity DeviceSecurity { get; set; } = new();
     public List<DeviceDisk> Disks { get; set; } = [];
     public List<DeviceSoftware> Software { get; set; } = [];

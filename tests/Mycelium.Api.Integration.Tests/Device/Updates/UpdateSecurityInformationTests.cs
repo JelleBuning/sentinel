@@ -1,8 +1,8 @@
-using NUnit.Framework;
-using Mycelium.Api.Integration.Tests.Common;
+using Mycelium.Api.IntegrationTests.Common;
 using Mycelium.Common.DTO.Device;
+using NUnit.Framework;
 
-namespace Mycelium.Api.Integration.Tests.Device.Updates;
+namespace Mycelium.Api.IntegrationTests.Device.Updates;
 
 public class UpdateSecurityInformationTests
 {
@@ -12,7 +12,7 @@ public class UpdateSecurityInformationTests
         await using var scope = new TestScope();
         await scope.AuthenticateAsDeviceAsync();
         
-        var updateDto = new SecurityInformationDto
+        var updateDto = new SecurityDto
         {
             LastSecurityScanDto = new LastSecurityScanDto
             {
@@ -28,7 +28,7 @@ public class UpdateSecurityInformationTests
                 PublicFirewallEnabled = true
             }
         };
-        
+
         var device = scope.Organisation.Devices.Single();
         
         var result = await scope.Client.PutAsync($"/api/v1/devices/{device!.Id}/security", updateDto);
@@ -40,7 +40,7 @@ public class UpdateSecurityInformationTests
     {
         await using var scope = new TestScope();
         
-        var updateDto = new SecurityInformationDto
+        var updateDto = new SecurityDto
         {
             LastSecurityScanDto = new LastSecurityScanDto
             {
@@ -56,7 +56,7 @@ public class UpdateSecurityInformationTests
                 PublicFirewallEnabled = true
             }
         };
-        
+
         var result = await scope.Client.PutAsync("/api/v1/devices/1/security", updateDto);
         
         result.ShouldBeUnauthorized();

@@ -1,3 +1,4 @@
+
 namespace Mycelium.Api.Auth.Dto;
 
 public class TokenDto

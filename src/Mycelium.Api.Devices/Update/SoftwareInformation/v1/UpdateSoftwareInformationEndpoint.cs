@@ -13,7 +13,7 @@ public sealed class UpdateSoftwareInformationEndpoint : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPut("/devices/{id}/software", async ([FromRoute] int id, [FromBody] SoftwareInformationDto body, [FromServices] IMediator mediator, CancellationToken cancellationToken) =>
+        app.MapPut("/devices/{id}/software", async ([FromRoute] int id, [FromBody] List<SoftwareDto> body, [FromServices] IMediator mediator, CancellationToken cancellationToken) =>
             {
                 var result = await mediator.Send(new UpdateSoftwareInformationCommand(id, body), cancellationToken);
                 return result.ToHttpResult();

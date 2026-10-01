@@ -1,8 +1,8 @@
-using NUnit.Framework;
-using Mycelium.Api.Integration.Tests.Common;
+using Mycelium.Api.IntegrationTests.Common;
 using Mycelium.Common.DTO.Device.Information;
+using NUnit.Framework;
 
-namespace Mycelium.Api.Integration.Tests.Device.Updates;
+namespace Mycelium.Api.IntegrationTests.Device.Updates;
 
 public class UpdateDeviceInformationTests
 {
@@ -12,7 +12,7 @@ public class UpdateDeviceInformationTests
         await using var scope = new TestScope();
         await scope.AuthenticateAsDeviceAsync();
 
-        var updateDto = new DeviceInformationDto
+        var updateDto = new InformationDto
         {
             DeviceName = "Updated Device",
             OsName = "Windows",
@@ -37,7 +37,7 @@ public class UpdateDeviceInformationTests
     {
         await using var scope = new TestScope();
 
-        var updateDto = new DeviceInformationDto
+        var updateDto = new InformationDto
         {
             DeviceName = "Updated Device",
             OsName = "Windows",

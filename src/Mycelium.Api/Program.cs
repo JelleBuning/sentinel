@@ -55,7 +55,6 @@ try
 
     using (var scope = app.Services.CreateScope())
     {
-        // It skips migration in test, non-relational DB
         var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
         if (dbContext.Database.IsRelational()) dbContext.Database.Migrate();
     }

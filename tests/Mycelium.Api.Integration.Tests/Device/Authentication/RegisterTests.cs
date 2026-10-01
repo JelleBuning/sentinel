@@ -1,8 +1,8 @@
-using NUnit.Framework;
-using Mycelium.Api.Integration.Tests.Common;
+using Mycelium.Api.IntegrationTests.Common;
 using Mycelium.Common.DTO.Device;
+using NUnit.Framework;
 
-namespace Mycelium.Api.Integration.Tests.Device.Authentication;
+namespace Mycelium.Api.IntegrationTests.Device.Authentication;
 
 public class RegisterTests
 {

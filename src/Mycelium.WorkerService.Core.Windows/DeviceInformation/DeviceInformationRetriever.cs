@@ -1,17 +1,17 @@
-using System.Management;
 using Mycelium.Common.DTO.Device.Information;
-using Mycelium.WorkerService.Common.Helpers;
+using Mycelium.WorkerService.Common.Hardware;
 using Mycelium.WorkerService.Core.DeviceInformation.Interfaces;
+using Mycelium.WorkerService.Core.Windows.Wmi;
 
 namespace Mycelium.WorkerService.Core.Windows.DeviceInformation;
 
 #pragma warning disable CA1416
-public class DeviceInformationRetriever : IDeviceInformationRetriever
+public class DeviceInformationRetriever(IWmiQueryService wmiQueryService, IMemoryInfoProvider memoryInfoProvider) : IDeviceInformationRetriever
 {
-    public DeviceInformationDto Retrieve()
+    public InformationDto Retrieve()
     {
-        Kernel32Helper.GetPhysicallyInstalledSystemMemory(out var memKb);
-        return new DeviceInformationDto
+        var memKb = memoryInfoProvider.GetInstalledMemoryKilobytes();
+        return new InformationDto
         {
             DeviceName = Environment.MachineName,
             OsName = GetSystemManagementString("Win32_OperatingSystem", "Caption"),
@@ -25,16 +25,16 @@ public class DeviceInformationRetriever : IDeviceInformationRetriever
             GraphicsCard = GetSystemManagementString("Win32_VideoController", "Caption")
         };
     }
-    
-    private static string GetSystemManagementString(string key, string resultKey, string scope = "")
+
+    private string GetSystemManagementString(string key, string resultKey, string scope = "")
     {
-        using var searcher = new ManagementObjectSearcher(scope, "SELECT * FROM " + key);
+        var rows = wmiQueryService.Query("SELECT * FROM " + key, scope);
         var res = new List<object?>();
-        foreach (var mo in searcher.Get())
+        foreach (var row in rows)
         {
             try
             {
-                res.Add(mo.GetPropertyValue(resultKey));
+                res.Add(row[resultKey]);
             }
             catch
             {

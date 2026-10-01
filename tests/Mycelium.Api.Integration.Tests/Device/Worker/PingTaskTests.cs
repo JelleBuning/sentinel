@@ -1,7 +1,7 @@
+using Mycelium.Api.IntegrationTests.Common;
 using NUnit.Framework;
-using Mycelium.Api.Integration.Tests.Common;
 
-namespace Mycelium.Api.Integration.Tests.Device.Worker;
+namespace Mycelium.Api.IntegrationTests.Device.Worker;
 
 public class PingTaskTests
 {

@@ -13,7 +13,7 @@ public sealed class UpdateSecurityInformationEndpoint : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPut("/devices/{id}/security", async ([FromRoute] int id, [FromBody] SecurityInformationDto body, [FromServices] IMediator mediator, CancellationToken cancellationToken) =>
+        app.MapPut("/devices/{id}/security", async ([FromRoute] int id, [FromBody] SecurityDto body, [FromServices] IMediator mediator, CancellationToken cancellationToken) =>
             {
                 var result = await mediator.Send(new UpdateSecurityInformationCommand(id, body), cancellationToken);
                 return result.ToHttpResult();

@@ -1,8 +1,8 @@
-using NUnit.Framework;
-using Mycelium.Api.Integration.Tests.Common;
+using Mycelium.Api.IntegrationTests.Common;
 using Mycelium.Common.DTO.Device;
+using NUnit.Framework;
 
-namespace Mycelium.Api.Integration.Tests.Device.Updates;
+namespace Mycelium.Api.IntegrationTests.Device.Updates;
 
 public class UpdateSoftwareInformationTests
 {
@@ -12,14 +12,11 @@ public class UpdateSoftwareInformationTests
         await using var scope = new TestScope();
         await scope.AuthenticateAsDeviceAsync();
         
-        var updateDto = new SoftwareInformationDto
+        var updateDto = new List<SoftwareDto>
         {
-            Software =
-            [
-                new() { Name = "Google Chrome" },
-                new() { Name = "Mozilla Firefox" },
-                new() { Name = "Visual Studio Code" }
-            ]
+            new() { Name = "Google Chrome" },
+            new() { Name = "Mozilla Firefox" },
+            new() { Name = "Visual Studio Code" }
         };
         var device = scope.Organisation.Devices.Single();
         
@@ -33,16 +30,13 @@ public class UpdateSoftwareInformationTests
     {
         await using var scope = new TestScope();
         
-        var updateDto = new SoftwareInformationDto
+        var updateDto = new List<SoftwareDto>
         {
-            Software =
-            [
-                new() { Name = "Google Chrome" },
-                new() { Name = "Mozilla Firefox" },
-                new() { Name = "Visual Studio Code" }
-            ]
+            new() { Name = "Google Chrome" },
+            new() { Name = "Mozilla Firefox" },
+            new() { Name = "Visual Studio Code" }
         };
-        
+
         var result = await scope.Client.PutAsync("/api/v1/devices/1/software", updateDto);
         
         result.ShouldBeUnauthorized();

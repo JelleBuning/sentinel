@@ -33,7 +33,7 @@ namespace Mycelium.Api.EntityFramework.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DeviceDetailsId")
+                    b.Property<int>("DeviceInformationId")
                         .HasColumnType("int");
 
                     b.Property<int>("DeviceSecurityId")
@@ -54,44 +54,13 @@ namespace Mycelium.Api.EntityFramework.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DeviceDetailsId");
+                    b.HasIndex("DeviceInformationId");
 
                     b.HasIndex("DeviceSecurityId");
 
                     b.HasIndex("OrganisationId");
 
                     b.ToTable("Devices");
-                });
-
-            modelBuilder.Entity("Mycelium.Api.EntityFramework.Entities.DeviceDetails", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("GraphicsCard")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("InstalledRam")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Manufacturer")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Processor")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProductName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Version")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("DeviceDetails");
                 });
 
             modelBuilder.Entity("Mycelium.Api.EntityFramework.Entities.DeviceDisk", b =>
@@ -104,6 +73,9 @@ namespace Mycelium.Api.EntityFramework.Migrations
 
                     b.Property<int?>("DeviceId")
                         .HasColumnType("int");
+
+                    b.Property<string>("HealthStatus")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsOsDisk")
                         .HasColumnType("bit");
@@ -122,6 +94,43 @@ namespace Mycelium.Api.EntityFramework.Migrations
                     b.HasIndex("DeviceId");
 
                     b.ToTable("DeviceDisks");
+                });
+
+            modelBuilder.Entity("Mycelium.Api.EntityFramework.Entities.DeviceInformation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("GraphicsCard")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("InstalledRam")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Manufacturer")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OsName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OsVersion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Processor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProductName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Version")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DeviceInformation");
                 });
 
             modelBuilder.Entity("Mycelium.Api.EntityFramework.Entities.DeviceSecurity", b =>
@@ -260,9 +269,9 @@ namespace Mycelium.Api.EntityFramework.Migrations
 
             modelBuilder.Entity("Mycelium.Api.EntityFramework.Entities.Device", b =>
                 {
-                    b.HasOne("Mycelium.Api.EntityFramework.Entities.DeviceDetails", "DeviceDetails")
+                    b.HasOne("Mycelium.Api.EntityFramework.Entities.DeviceInformation", "DeviceInformation")
                         .WithMany()
-                        .HasForeignKey("DeviceDetailsId")
+                        .HasForeignKey("DeviceInformationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -278,7 +287,7 @@ namespace Mycelium.Api.EntityFramework.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("DeviceDetails");
+                    b.Navigation("DeviceInformation");
 
                     b.Navigation("DeviceSecurity");
                 });

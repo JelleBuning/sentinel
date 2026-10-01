@@ -10,7 +10,6 @@ public static class ProcessHelper
         var startInfo = new ProcessStartInfo(fileName)
         {
             WorkingDirectory = Path.GetDirectoryName(fileName),
-            FileName = Path.GetFileName(fileName),
             UseShellExecute = false,
             CreateNoWindow = true,
             RedirectStandardInput = true,
